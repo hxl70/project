@@ -24,6 +24,7 @@ import java.util.List;
 
 /**
  * Created by hxl on 2016/5/17.
+ * Security 配置
  */
 @EnableWebSecurity
 @Configuration
@@ -39,11 +40,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/index", "/login").permitAll()
-                .anyRequest().fullyAuthenticated()
+                .anyRequest().authenticated()
                 .accessDecisionManager(accessDecision)
                 .and().formLogin().loginPage("/login").failureUrl("/login?error").permitAll()
                 .and().logout().logoutUrl("/logout").deleteCookies("remember-me").logoutSuccessUrl("/").permitAll()
-                .and().rememberMe().key("whatsKey").rememberMeCookieName("remember-me").rememberMeParameter("rememberMe");
+                .and().rememberMe().key("whatsKey").rememberMeCookieName("remember-me").rememberMeParameter("rememberMe").userDetailsService(userDetailsService);
     }
 
     @Override
@@ -58,7 +59,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Bean
     protected AccessDecisionManager accessDecision() {
-        List<AccessDecisionVoter<? extends Object>> voters = new ArrayList<>();
+        List<AccessDecisionVoter<?>> voters = new ArrayList<>();
         voters.add(new WebExpressionVoter()); //Voter which handles web authorisation decisions.
         voters.add(new AuthenticatedVoter()); //spring 认证 Voter
 //        voters.add(new AdminVoter()); //自定义Voter

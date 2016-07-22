@@ -6,8 +6,11 @@
 	<groupId>com.hxl</groupId>
 	<artifactId>project</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<!--子项目-->
 	<modules>
+		<!--Spring Boot MVC-->
 		<module>mvc</module>
+		<!--code revered-->
 		<module>autocode</module>
 	</modules>
 	<packaging>pom</packaging>
@@ -15,6 +18,7 @@
 	<name>project</name>
 	<description></description>
 
+    <!--Spring Boot 项目,也可以使用dependency引入-->
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>

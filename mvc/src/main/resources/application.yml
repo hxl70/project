@@ -1,8 +1,22 @@
+#SpringApplication will load properties from application.properties files in the following
+#locations and add them to the Spring Environment:
+#1. A /config subdirectory of the current directory.
+#2. The current directory
+#3. A classpath /config package
+#4. The classpath root
 spring:
-  datasource:
-    url: jdbc:mysql://172.16.1.11:3306/etvdb
-    username: root
-    password: 123456
-    driver-class-name: com.mysql.jdbc.Driver
+#不显示banner,然并卵
   main:
     banner-mode: off
+#    加载dev配置文件
+  profiles:
+    active: dev
+#    缓存模板 @see ThymeleafAutoConfiguration
+  thymeleaf:
+    cache: false
+#    banner 路径
+banner:
+  location: banner.txt
+#  HTTP端口
+server:
+  port: 8888

@@ -12,10 +12,10 @@
     You have been logged out.
 </div>
 <form th:action="@{/login}" method="post">
-    <div><label> User Name : <input type="text" name="username"/> </label></div>
-    <div><label> Password: <input type="password" name="password"/> </label></div>
-    <div><input type="checkbox" name="rememberMe" />RememberMe</div>
-    <div><input type="submit" value="Sign In"/></div>
+    <div><label> <span th:text="#{label.username}">User Name</span> : <input type="text" name="username"/> </label></div>
+    <div><label> <span th:text="#{label.password}">Password</span> : <input type="password" name="password"/> </label></div>
+    <div><input type="checkbox" name="rememberMe"/><span th:text="#{label.remember_me}">Remember Me</span></div>
+    <div><input type="submit" th:value="#{label.sign_in}" value="sign in"/></div>
 </form>
 </body>
 </html>

@@ -14,11 +14,15 @@ import java.util.Arrays;
 @SpringBootApplication
 public class Application {
 
+    //TODO 页面框架
+    //TODO Cache
+    //TODO 权限
+    //TODO Thymeleaf Security 标签
     public static void main(String[] args) {
         SpringApplication app = new SpringApplication(Application.class);
-        //然而都不生效
         app.setBannerMode(Banner.Mode.OFF);
-        ConfigurableApplicationContext context = app.run(Application.class, args);
+        ConfigurableApplicationContext context = app.run(args);
         Arrays.asList(context.getBeanDefinitionNames()).forEach(System.out::println);
     }
+
 }

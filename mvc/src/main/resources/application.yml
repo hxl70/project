@@ -16,7 +16,7 @@ spring:
     cache: false
     #国际化
   messages:
-    basename: message/message
+    basename: messages/message
 #    banner 路径
 banner:
   location: banner.txt

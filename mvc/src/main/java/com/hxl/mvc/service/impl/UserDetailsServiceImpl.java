@@ -26,7 +26,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         com.hxl.mvc.entity.User sys_user = userService.loadUserByUsername(s);
         //权限,需要从数据库中获取
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(sys_user.isAdmin() ? "ADMIN" : "USER"));
+        //设置权限时,需要加上 ROLE_ 前缀
+        authorities.add(new SimpleGrantedAuthority(sys_user.isAdmin() ? "ROLE_ADMIN" : "ROLE_USER"));
         User user = new User(sys_user.getUsername(), sys_user.getPassword(), authorities);
         return user;
     }

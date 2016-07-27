@@ -17,7 +17,6 @@ public class Application {
     //TODO 页面框架
     //TODO Cache
     //TODO 权限
-    //TODO Thymeleaf Security 标签
     public static void main(String[] args) {
         SpringApplication app = new SpringApplication(Application.class);
         app.setBannerMode(Banner.Mode.OFF);

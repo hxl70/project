@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * Created by hxl on 2016/7/19.
+ * 测试JDBC
  */
 @Component
 public class MyBean {

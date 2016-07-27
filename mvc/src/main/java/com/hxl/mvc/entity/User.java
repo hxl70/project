@@ -8,6 +8,7 @@ import java.util.Date;
 
 /**
  * Created by hxl on 2016/6/23.
+ * 用户
  */
 @Entity
 @Table(name = "sys_users")

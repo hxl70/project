@@ -15,9 +15,10 @@ import java.util.Date;
 
 /**
  * Created by hxl on 2016/5/17.
+ * MVC配置
  */
 @Configuration
-public class MvcConfiguration extends WebMvcConfigurerAdapter {
+public class MvcConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {

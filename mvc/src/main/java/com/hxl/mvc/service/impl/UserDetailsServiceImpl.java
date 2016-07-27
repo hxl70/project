@@ -14,6 +14,7 @@ import java.util.List;
 
 /**
  * Created by hxl on 2016/5/17.
+ * 用户登录实现
  */
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {

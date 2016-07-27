@@ -26,7 +26,7 @@ import java.util.List;
  */
 @EnableWebSecurity
 @Configuration
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private AccessDecisionManager accessDecision;
@@ -59,9 +59,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
     protected AccessDecisionManager accessDecision() {
         List<AccessDecisionVoter<?>> voters = new ArrayList<>();
+//        voters.add(new AdminVoter()); //自定义Voter
         voters.add(new WebExpressionVoter()); //Voter which handles web authorisation decisions.
         voters.add(new AuthenticatedVoter()); //spring 认证 Voter
-//        voters.add(new AdminVoter()); //自定义Voter
         voters.add(new RoleVoter()); //spring 角色 Voter
         return new AffirmativeBased(voters); //投票机制:所有弃权则通过.有同意则通过,没有赞成但是有反对则抛出异常
     }

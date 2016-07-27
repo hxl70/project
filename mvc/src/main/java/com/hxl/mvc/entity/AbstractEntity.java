@@ -9,6 +9,7 @@ import javax.persistence.MappedSuperclass;
 
 /**
  * Created by hxl on 2016/6/23.
+ * 实体超类,定义id字段
  */
 @MappedSuperclass
 public abstract class AbstractEntity {

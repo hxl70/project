@@ -9,6 +9,7 @@ import java.util.Collection;
 
 /**
  * Created by hxl on 2016/5/31.
+ * 系统超级管理员判断,用户为系统管理员时可以获得所有的权限
  */
 public class AdminVoter implements AccessDecisionVoter<Object> {
     @Override
@@ -26,7 +27,7 @@ public class AdminVoter implements AccessDecisionVoter<Object> {
 
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         return authorities.stream().anyMatch((auth) ->
-            "ADMIN".equals(auth.getAuthority())
+            "ROLE_ADMIN".equals(auth.getAuthority())
         ) ? AccessDecisionVoter.ACCESS_GRANTED : AccessDecisionVoter.ACCESS_ABSTAIN;
     }
 }

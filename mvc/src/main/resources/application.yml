@@ -5,18 +5,20 @@
 #3. A classpath /config package
 #4. The classpath root
 spring:
-#不显示banner,然并卵
+#不显示banner,然并卵,必须在Application中设置
   main:
     banner-mode: off
-#    加载dev配置文件
+#    加载application-dev.yml配置文件
   profiles:
     active: dev
+#国际化和thymeleaf可以在MvcConfig中配置
 #    缓存模板 @see ThymeleafAutoConfiguration
   thymeleaf:
     cache: false
     #国际化
   messages:
     basename: messages/message
+
 #    banner 路径
 banner:
   location: banner.txt

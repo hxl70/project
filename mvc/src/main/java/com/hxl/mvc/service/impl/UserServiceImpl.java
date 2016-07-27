@@ -8,6 +8,7 @@ import com.hxl.mvc.service.UserService;
 
 /**
  * Created by hxl on 2016/7/13.
+ * 用户Service实现
  */
 @Service
 public class UserServiceImpl implements UserService {

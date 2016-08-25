@@ -25,6 +25,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         com.hxl.mvc.entity.User sys_user = userService.loadUserByUsername(s);
+        if (sys_user == null) {
+            throw new UsernameNotFoundException(s);
+        }
         //权限,需要从数据库中获取
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
         //设置权限时,需要加上 ROLE_ 前缀

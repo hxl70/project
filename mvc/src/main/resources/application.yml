@@ -25,3 +25,7 @@ banner:
 #  HTTP端口
 server:
   port: 8888
+  ssl:
+    key-store: classpath:tomcat.jks
+    key-store-password: 123456
+    key-password: 123456

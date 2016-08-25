@@ -12,7 +12,8 @@
 		<module>mvc</module>
 		<!--code revered-->
 		<module>autocode</module>
-	</modules>
+        <module>attachment</module>
+    </modules>
 	<packaging>pom</packaging>
 
 	<name>project</name>

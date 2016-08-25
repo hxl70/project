@@ -88,4 +88,19 @@ public class User extends AbstractEntity {
     public void setUsername(String username) {
         this.username = username;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "admin=" + admin +
+                ", created=" + created +
+                ", email='" + email + '\'' +
+                ", lastLogin=" + lastLogin +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", status='" + status + '\'' +
+                ", username='" + username + '\'' +
+                '}';
+    }
+
 }

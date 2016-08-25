@@ -20,11 +20,11 @@ public abstract class AbstractEntity {
     @GenericGenerator(name = "idGenerator", strategy = "uuid")
     private String id;
 
-    protected String getId() {
+    public String getId() {
         return id;
     }
 
-    protected void setId(String id) {
+    public void setId(String id) {
         this.id = id;
     }
 }

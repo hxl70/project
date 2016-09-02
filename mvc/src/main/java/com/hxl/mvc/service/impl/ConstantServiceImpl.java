@@ -5,6 +5,9 @@ import com.hxl.mvc.entity.Constant;
 import com.hxl.mvc.query.ConstantQuery;
 import com.hxl.mvc.service.ConstantService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
@@ -19,31 +22,36 @@ public class ConstantServiceImpl implements ConstantService {
     @Autowired
     private ConstantDao constantDao;
 
-    @Override
-    public Page<Constant> page(ConstantQuery query) {
-        return constantDao.findAll(query.getSpecification(), query.getPageable());
-    }
-
+    @Cacheable("Constant")
     @Override
     public List<Constant> findByParentCode(String parentCode) {
         return constantDao.findByParentCode(parentCode);
     }
 
     @Override
+    public Page<Constant> page(ConstantQuery query) {
+        return constantDao.findAll(query.getSpecification(), query.getPageable());
+    }
+
+    @CacheEvict("Constant")
+    @Override
     public void save(Constant constant) {
         constantDao.save(constant);
     }
 
+    @CachePut("Constant")
     @Override
     public void update(Constant constant) {
         constantDao.save(constant);
     }
 
+    @CacheEvict(value = "Constant", allEntries = true)
     @Override
     public void delete(String id) {
         constantDao.delete(id);
     }
 
+    @Cacheable("Constant")
     @Override
     public Constant findById(String id) {
         return constantDao.findOne(id);

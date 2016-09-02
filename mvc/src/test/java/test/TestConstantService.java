@@ -25,6 +25,8 @@ public class TestConstantService {
     @Autowired
     private ConstantService constantService;
 
+    private String id;
+
     @Test
     public void test() {
         Assert.assertNotNull(constantService);
@@ -38,11 +40,12 @@ public class TestConstantService {
         constant.setNum(1);
         constantService.save(constant);
         Assert.assertNotNull(constant.getId());
+        id = constant.getId();
     }
 
     @Test
     public void testUpdate() {
-        Constant constant = constantService.findById("4028b88156bf4b630156bf4b6bf70000");
+        Constant constant = constantService.findById(id);
         constant.setCode("code2");
         constant.setNum(2);
         constant.setName("name2");
@@ -51,7 +54,7 @@ public class TestConstantService {
 
     @Test
     public void testSaveChildren() {
-        Constant parent = constantService.findById("4028b88156bf4b630156bf4b6bf70000");
+        Constant parent = constantService.findById(id);
         Constant constant = new Constant();
         constant.setCode("code3");
         constant.setNum(3);
@@ -72,6 +75,16 @@ public class TestConstantService {
         ConstantQuery query = new ConstantQuery();
         Page<Constant> page = constantService.page(query);
         Assert.assertNotNull(page.getContent());
+    }
+
+    @Test
+    public void testAll() {
+        testSave();
+        testUpdate();
+        testFindByParentCode();
+        testFindByParentCode();
+        constantService.delete(id);
+        testFindByParentCode();
     }
 
 }

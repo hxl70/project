@@ -5,7 +5,7 @@
     <!--跟project没什么关系,只是懒-->
     <parent>
         <artifactId>project</artifactId>
-        <groupId>com.hxl</groupId>
+        <groupId>com.xling</groupId>
         <version>0.0.1-SNAPSHOT</version>
         <!--层级只有一层可以省略-->
         <!--<relativePath>../pom.xml</relativePath>-->
@@ -13,6 +13,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>mvc</artifactId>
+    <packaging>war</packaging>
 
     <dependencies>
         <dependency>

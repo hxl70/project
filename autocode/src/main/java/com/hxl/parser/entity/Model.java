@@ -1,4 +1,4 @@
-package com.hxl.entity;
+package com.hxl.parser.entity;
 
 import java.util.List;
 

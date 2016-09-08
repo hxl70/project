@@ -1,9 +1,9 @@
 package com.hxl.parser;
 
-import com.hxl.entity.Column;
-import com.hxl.entity.Diagram;
-import com.hxl.entity.Model;
-import com.hxl.entity.Table;
+import com.hxl.parser.entity.Column;
+import com.hxl.parser.entity.Diagram;
+import com.hxl.parser.entity.Model;
+import com.hxl.parser.entity.Table;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
@@ -39,6 +39,7 @@ public class PdmParser {
                 Diagram diagram = new Diagram();
                 diagram.setCode(d.elementTextTrim("Code"));
                 diagram.setName(d.elementTextTrim("Name"));
+                diagram.setModel(model);
                 //tables
                 Iterator<?> it3 = d.selectNodes("//c:Tables//o:Table").iterator();
                 List<Table> tables = new ArrayList<>();
@@ -47,6 +48,7 @@ public class PdmParser {
                     Element t = (Element) it3.next();
                     table.setCode(t.elementTextTrim("Code"));
                     table.setName(t.elementTextTrim("Name"));
+                    table.setDiagram(diagram);
                     //columns
                     Element pdmColumns = t.element("Columns");
                     if (pdmColumns == null) {
@@ -66,6 +68,7 @@ public class PdmParser {
                     while (it4.hasNext()) {
                         Element c = (Element) it4.next();
                         Column column = new Column();
+                        column.setTable(table);
                         column.setCode(c.elementTextTrim("Code"));
                         column.setName(c.elementTextTrim("Name"));
                         column.setDefaultValue(c.elementTextTrim("DefaultValue"));
@@ -81,6 +84,7 @@ public class PdmParser {
                         if (keys_primarykey_ref_id.equals(keys_key_id) && keys_column_ref.equals(pkID)) {
                             column.setPkFlag(true);
 //                            table.setIdField(column.getCode());
+                            table.setPkColumn(column);
                         }
                         columns.add(column);
                     }
@@ -107,8 +111,16 @@ public class PdmParser {
     }
 
     public static void main(String[] args) {
-        String file = "F:/PhysicalDataModel_2.pdm";
+        String file = "F:/IMS.pdm";
         Model model = pdmParse(file);
-        System.out.println(model.getName());
+        model.getDiagrams().forEach(d -> {
+            System.out.println(d.getName() + "\t" + d.getCode() + "\t");
+            d.getTables().forEach(t -> {
+                System.out.println(t.getName() + "\t" + t.getCode() + "\t");
+                t.getColumns().forEach(c -> System.out.println(c.getName() + "\t" + c.getCode() + "\t"));
+                System.out.println();
+            });
+            System.out.println();
+        });
     }
 }

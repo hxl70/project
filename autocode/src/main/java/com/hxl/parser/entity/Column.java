@@ -1,4 +1,4 @@
-package com.hxl.entity;
+package com.hxl.parser.entity;
 
 /**
  * Created by hxl on 2016/7/20.
@@ -12,6 +12,7 @@ public class Column {
     private Integer length;
     private Boolean pkFlag;
     private String defaultValue;
+    private Table table;
 
     public String getName() {
         return name;
@@ -59,5 +60,13 @@ public class Column {
 
     public void setDefaultValue(String defaultValue) {
         this.defaultValue = defaultValue;
+    }
+
+    public Table getTable() {
+        return table;
+    }
+
+    public void setTable(Table table) {
+        this.table = table;
     }
 }

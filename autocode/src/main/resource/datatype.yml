@@ -1,0 +1,11 @@
+dataType:
+  types:
+    - javaType: String
+      databaseType: varchar
+    - javaType: Integer
+      databaseType: int
+      database: MYSQL
+    - javaType: Date
+      databaseType: datetime
+    - javaType: Boolean
+      databaseType: bit

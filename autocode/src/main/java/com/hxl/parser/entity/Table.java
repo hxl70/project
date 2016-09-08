@@ -1,4 +1,4 @@
-package com.hxl.entity;
+package com.hxl.parser.entity;
 
 import java.util.List;
 
@@ -10,7 +10,9 @@ public class Table {
 
     private String name;
     private String code;
+    private Column pkColumn;
     private List<Column> columns;
+    private Diagram diagram;
 
     public String getName() {
         return name;
@@ -28,11 +30,27 @@ public class Table {
         this.code = code;
     }
 
+    public Column getPkColumn() {
+        return pkColumn;
+    }
+
+    public void setPkColumn(Column pkColumn) {
+        this.pkColumn = pkColumn;
+    }
+
     public List<Column> getColumns() {
         return columns;
     }
 
     public void setColumns(List<Column> columns) {
         this.columns = columns;
+    }
+
+    public Diagram getDiagram() {
+        return diagram;
+    }
+
+    public void setDiagram(Diagram diagram) {
+        this.diagram = diagram;
     }
 }

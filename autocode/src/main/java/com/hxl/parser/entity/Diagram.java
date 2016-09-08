@@ -1,4 +1,4 @@
-package com.hxl.entity;
+package com.hxl.parser.entity;
 
 import java.util.List;
 
@@ -11,6 +11,7 @@ public class Diagram {
     private String name;
     private String code;
     private List<Table> tables;
+    private Model model;
 
     public String getName() {
         return name;
@@ -34,5 +35,13 @@ public class Diagram {
 
     public void setTables(List<Table> tables) {
         this.tables = tables;
+    }
+
+    public Model getModel() {
+        return model;
+    }
+
+    public void setModel(Model model) {
+        this.model = model;
     }
 }

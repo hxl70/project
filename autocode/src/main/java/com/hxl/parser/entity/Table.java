@@ -12,7 +12,6 @@ public class Table {
     private String code;
     private Column pkColumn;
     private List<Column> columns;
-    private Diagram diagram;
 
     public String getName() {
         return name;
@@ -46,11 +45,4 @@ public class Table {
         this.columns = columns;
     }
 
-    public Diagram getDiagram() {
-        return diagram;
-    }
-
-    public void setDiagram(Diagram diagram) {
-        this.diagram = diagram;
-    }
 }

@@ -1,3 +1,28 @@
 generator:
   config:
-    outputPath: "F:/"
+    outputDirectory: "F:/output/"
+    configs:
+      - name: entity
+        fileType: ENTITY
+        path: entity
+        template: templates/entity.vm
+        ext: .java
+      - name: service
+        fileType: SERVICE
+        path: service
+        template: templates/service.vm
+        ext: .java
+      - name: serviceImpl
+        fileType: SERVICE_IMPL
+        path: service.impl
+        template: templates/serviceImpl.vm
+        ext: .java
+      - name: controller
+        fileType: CONTROLLER
+        path: controller
+        template: templates/controller.vm
+        ext: .java
+
+
+
+

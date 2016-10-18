@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 /**
  * Created by hxl on 2016/7/21.
  */
@@ -14,7 +16,11 @@ public class DatabaseParser {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    public static Table parse(String tableName) {
+    public Table parse(String tableName) {
+        return null;
+    }
+
+    public List<Table> parse() {
         return null;
     }
 

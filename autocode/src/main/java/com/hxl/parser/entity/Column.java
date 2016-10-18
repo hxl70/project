@@ -10,7 +10,7 @@ public class Column {
     private String code;
     private String type;
     private Integer length;
-    private Boolean pkFlag;
+    private boolean pkFlag;
     private String defaultValue;
     private Table table;
 
@@ -46,11 +46,11 @@ public class Column {
         this.length = length;
     }
 
-    public Boolean getPkFlag() {
+    public boolean getPkFlag() {
         return pkFlag;
     }
 
-    public void setPkFlag(Boolean pkFlag) {
+    public void setPkFlag(boolean pkFlag) {
         this.pkFlag = pkFlag;
     }
 

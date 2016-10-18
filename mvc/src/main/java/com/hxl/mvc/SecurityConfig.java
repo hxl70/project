@@ -24,7 +24,7 @@ import java.util.List;
  * Created by hxl on 2016/5/17.
  * Security 配置
  */
-@EnableWebSecurity
+@EnableWebSecurity(debug = true)
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 

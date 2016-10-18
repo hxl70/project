@@ -17,6 +17,11 @@ public abstract class Query<T> {
     protected Sort.Direction direction;
     protected String[] properties;
 
+    public Query(Sort.Direction direction, String... properties) {
+        this.direction = direction;
+        this.properties = properties;
+    }
+
     public Integer getPage() {
         return page;
     }
@@ -50,11 +55,6 @@ public abstract class Query<T> {
     }
 
     public abstract Specification<T> getSpecification();
-
-    protected void setOrder(Sort.Direction direction, String... properties) {
-        setDirection(direction);
-        setProperties(properties);
-    }
 
     public Pageable getPageable() {
         if (direction == null || properties == null) {

@@ -1,4 +1,4 @@
-package com.hxl.parser.entity;
+package com.hxl.generator.properties;
 
 import com.hxl.parser.enumeration.Database;
 import org.springframework.boot.context.properties.ConfigurationProperties;

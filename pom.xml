@@ -13,6 +13,7 @@
 		<!--code revered-->
 		<module>autocode</module>
         <module>attachment</module>
+        <module>fastJson</module>
     </modules>
 	<packaging>pom</packaging>
 

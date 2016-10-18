@@ -15,7 +15,7 @@ import java.util.List;
 public class ConstantQuery extends Query<Constant> {
 
     public ConstantQuery() {
-        setOrder(Sort.Direction.ASC, "code");
+        super(Sort.Direction.ASC, "code");
     }
 
     private String code;

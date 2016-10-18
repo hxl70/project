@@ -8,8 +8,8 @@ spring:
     show-sql: true
 logging:
   level:
-    root: warn
-    org.springframework.web: warn
-    org.hibernate: warn
+    root: info
+    org.springframework.web: info
+    org.hibernate: info
 #    日志大小10M
   file: application.log

@@ -1,8 +1,6 @@
 package com.hxl.parser;
 
 import com.hxl.parser.entity.Column;
-import com.hxl.parser.entity.Diagram;
-import com.hxl.parser.entity.Model;
 import com.hxl.parser.entity.Table;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -20,83 +18,63 @@ import java.util.List;
  */
 public class PdmParser {
 
-    public static Model pdmParse(String filePath) {
-        Model model = new Model();
-
+    public static List<Table> pdmParse(String filePath) {
         //read pdm
         Document doc = readPDM(filePath);
-        //models
-        Iterator<?> it = doc.selectNodes("//o:Model").iterator();
-        if(it.hasNext()) {
-            Element m = (Element) it.next();
-            model.setCode(m.elementTextTrim("Code"));
-            model.setName(m.elementTextTrim("Name"));
-            //diagrams
-            List<Diagram> diagrams = new ArrayList<>();
-            Iterator<?> it2 = m.selectNodes("//c:PhysicalDiagrams//o:PhysicalDiagram").iterator();
-            while (it2.hasNext()) {
-                Element d = (Element) it2.next();
-                Diagram diagram = new Diagram();
-                diagram.setCode(d.elementTextTrim("Code"));
-                diagram.setName(d.elementTextTrim("Name"));
-                diagram.setModel(model);
-                //tables
-                Iterator<?> it3 = d.selectNodes("//c:Tables//o:Table").iterator();
-                List<Table> tables = new ArrayList<>();
-                while (it3.hasNext()) {
-                    Table table = new Table();
-                    Element t = (Element) it3.next();
-                    table.setCode(t.elementTextTrim("Code"));
-                    table.setName(t.elementTextTrim("Name"));
-                    table.setDiagram(diagram);
-                    //columns
-                    Element pdmColumns = t.element("Columns");
-                    if (pdmColumns == null) {
-                        continue;
-                    }
-                    Iterator<?> it4 = pdmColumns.elements("Column").iterator();
-                    List<Column> columns = new ArrayList<>();
-                    //pk
-                    Element keys = t.element("Keys");
-                    String keys_key_id = "",keys_column_ref = "",keys_primarykey_ref_id = "";
-                    if(keys!=null){
-                        Element key = keys.element("Key");
-                        keys_key_id = key.attributeValue("Id");
-                        keys_column_ref = key.element("Key.Columns").element("Column").attributeValue("Ref");
-                        keys_primarykey_ref_id = t.element("PrimaryKey").element("Key").attributeValue("Ref");
-                    }
-                    while (it4.hasNext()) {
-                        Element c = (Element) it4.next();
-                        Column column = new Column();
-                        column.setTable(table);
-                        column.setCode(c.elementTextTrim("Code"));
-                        column.setName(c.elementTextTrim("Name"));
-                        column.setDefaultValue(c.elementTextTrim("DefaultValue"));
-                        String length = c.elementTextTrim("Length");
-                        column.setLength(length == null ? null : Integer.parseInt(length));
-                        String type = c.elementTextTrim("DataType");
-                        if(type.indexOf("(") >0){
-                            column.setType(type.substring(0, type.indexOf("(")));
-                        }else {
-                            column.setType(type);
-                        }
-                        String pkID = c.attributeValue("Id");
-                        if (keys_primarykey_ref_id.equals(keys_key_id) && keys_column_ref.equals(pkID)) {
-                            column.setPkFlag(true);
-//                            table.setIdField(column.getCode());
-                            table.setPkColumn(column);
-                        }
-                        columns.add(column);
-                    }
-                    table.setColumns(columns);
-                    tables.add(table);
-                }
-                diagram.setTables(tables);
-                diagrams.add(diagram);
+
+        //tables
+        Iterator<?> it3 = doc.selectNodes("//c:Tables//o:Table").iterator();
+        List<Table> tables = new ArrayList<>();
+        while (it3.hasNext()) {
+            Table table = new Table();
+            Element t = (Element) it3.next();
+            table.setCode(t.elementTextTrim("Code"));
+            table.setName(t.elementTextTrim("Name"));
+            //columns
+            Element pdmColumns = t.element("Columns");
+            if (pdmColumns == null) {
+                continue;
             }
-            model.setDiagrams(diagrams);
+            Iterator<?> it4 = pdmColumns.elements("Column").iterator();
+            List<Column> columns = new ArrayList<>();
+            //pk
+            Element keys = t.element("Keys");
+            String keys_key_id = "",keys_column_ref = "",keys_primarykey_ref_id = "";
+            if(keys!=null){
+                Element key = keys.element("Key");
+                keys_key_id = key.attributeValue("Id");
+                keys_column_ref = key.element("Key.Columns").element("Column").attributeValue("Ref");
+                keys_primarykey_ref_id = t.element("PrimaryKey").element("Key").attributeValue("Ref");
+            }
+            while (it4.hasNext()) {
+                Element c = (Element) it4.next();
+                Column column = new Column();
+                column.setTable(table);
+                column.setCode(c.elementTextTrim("Code"));
+                column.setName(c.elementTextTrim("Name"));
+                column.setDefaultValue(c.elementTextTrim("DefaultValue"));
+                String length = c.elementTextTrim("Length");
+                column.setLength(length == null ? null : Integer.parseInt(length));
+                String type = c.elementTextTrim("DataType");
+                if(type.indexOf("(") >0){
+                    column.setType(type.substring(0, type.indexOf("(")));
+                }else {
+                    column.setType(type);
+                }
+                String pkID = c.attributeValue("Id");
+                if (keys_primarykey_ref_id.equals(keys_key_id) && keys_column_ref.equals(pkID)) {
+                    column.setPkFlag(true);
+//                            table.setIdField(column.getCode());
+                    table.setPkColumn(column);
+                } else {
+                    column.setPkFlag(false);
+                }
+                columns.add(column);
+            }
+            table.setColumns(columns);
+            tables.add(table);
         }
-        return model;
+        return tables;
     }
 
     private static Document readPDM(String filePath) {
@@ -110,17 +88,4 @@ public class PdmParser {
         return doc;
     }
 
-    public static void main(String[] args) {
-        String file = "F:/IMS.pdm";
-        Model model = pdmParse(file);
-        model.getDiagrams().forEach(d -> {
-            System.out.println(d.getName() + "\t" + d.getCode() + "\t");
-            d.getTables().forEach(t -> {
-                System.out.println(t.getName() + "\t" + t.getCode() + "\t");
-                t.getColumns().forEach(c -> System.out.println(c.getName() + "\t" + c.getCode() + "\t"));
-                System.out.println();
-            });
-            System.out.println();
-        });
-    }
 }

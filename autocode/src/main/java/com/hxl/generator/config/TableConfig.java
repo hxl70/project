@@ -15,7 +15,6 @@ public class TableConfig {
     private boolean searched = true;
     private Table table;
     private List<ColumnConfig> columnConfigs;
-    private DiagramConfig diagramConfig;
 
     public TableConfig(Table table) {
         this.table = table;
@@ -69,11 +68,4 @@ public class TableConfig {
         this.columnConfigs = columnConfigs;
     }
 
-    public DiagramConfig getDiagramConfig() {
-        return diagramConfig;
-    }
-
-    public void setDiagramConfig(DiagramConfig diagramConfig) {
-        this.diagramConfig = diagramConfig;
-    }
 }

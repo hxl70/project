@@ -1,10 +1,15 @@
 package com.hxl;
 
 import com.hxl.generator.Generator;
+import com.hxl.parser.TableConfigParse;
+import com.hxl.parser.PdmParser;
+import com.hxl.parser.entity.Table;
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+
+import java.util.List;
 
 /**
  * Created by hxl on 2016/9/8.
@@ -17,6 +22,7 @@ public class Application {
         application.setBannerMode(Banner.Mode.OFF);
         ConfigurableApplicationContext context = application.run(args);
         Generator generator = context.getBean(Generator.class);
-        System.out.println(generator.getDataTypes().getTypes().size());
+        List<Table> tables = PdmParser.pdmParse("F:/portalmdb.pdm");
+        generator.generator(TableConfigParse.parse(tables));
     }
 }

@@ -1,12 +1,9 @@
 package com.hxl.generator.properties;
 
-import com.hxl.parser.enumeration.Database;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by hxl on 2016/9/5.
@@ -27,8 +24,7 @@ public class DataTypes {
     public static class DataType {
 
         private String javaType;
-        private String databaseType;
-        private Database database;
+        private String sqlType;
 
         public String getJavaType() {
             return javaType;
@@ -38,20 +34,12 @@ public class DataTypes {
             this.javaType = javaType;
         }
 
-        public String getDatabaseType() {
-            return databaseType;
+        public String getSqlType() {
+            return sqlType;
         }
 
-        public void setDatabaseType(String databaseType) {
-            this.databaseType = databaseType;
-        }
-
-        public Database getDatabase() {
-            return database;
-        }
-
-        public void setDatabase(Database database) {
-            this.database = database;
+        public void setSqlType(String sqlType) {
+            this.sqlType = sqlType;
         }
     }
 

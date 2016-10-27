@@ -1,11 +1,13 @@
+#MySQL
 dataType:
   types:
     - javaType: String
-      databaseType: varchar
+      sqlType: varchar
     - javaType: Integer
-      databaseType: int
-      database: MYSQL
+      sqlType: int
     - javaType: Date
-      databaseType: datetime
+      sqlType: datetime
     - javaType: Boolean
-      databaseType: bit
+      sqlType: bit
+    - javaType: String
+      sqlType: text

@@ -34,14 +34,10 @@ public class ConstantServiceImpl implements ConstantService {
         return constantDao.findAll(query.getSpecification(), query.getPageable());
     }
 
-    @Transactional
     @Cacheable("Constant")
     @Override
     public void save(Constant constant) {
         constantDao.save(constant);
-        constant.setName("2222");
-        constantDao.save(constant);
-        throw new RuntimeException("error");
     }
 
     @CachePut("Constant")

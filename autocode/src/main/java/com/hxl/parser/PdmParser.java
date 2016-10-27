@@ -35,8 +35,9 @@ public class PdmParser {
             if (pdmColumns == null) {
                 continue;
             }
-            Iterator<?> it4 = pdmColumns.elements("Column").iterator();
-            List<Column> columns = new ArrayList<>();
+            List columnElements = pdmColumns.elements("Column");
+            Iterator<?> it4 = columnElements.iterator();
+            List<Column> columns = new ArrayList<>(columnElements.size());
             //pk
             Element keys = t.element("Keys");
             String keys_key_id = "",keys_column_ref = "",keys_primarykey_ref_id = "";

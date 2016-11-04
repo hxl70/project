@@ -27,7 +27,7 @@ public class AdminVoter implements AccessDecisionVoter<Object> {
 
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         return authorities.stream().anyMatch((auth) ->
-            "ROLE_ADMIN".equals(auth.getAuthority())
+                "ROLE_ADMIN".equals(auth.getAuthority())
         ) ? AccessDecisionVoter.ACCESS_GRANTED : AccessDecisionVoter.ACCESS_ABSTAIN;
     }
 }

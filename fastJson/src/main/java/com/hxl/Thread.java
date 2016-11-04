@@ -20,7 +20,7 @@ public class Thread {
             int i = 0;
             while (true) {
                 i++;
-                queue.push(i +"");
+                queue.push(i + "");
                 try {
                     java.lang.Thread.sleep(1l);
                 } catch (InterruptedException e) {
@@ -32,36 +32,36 @@ public class Thread {
 
 }
 
- class Queue<T> {
+class Queue<T> {
     private static Queue instance = new Queue();
-     private LinkedList<T> list = new LinkedList<>();
+    private LinkedList<T> list = new LinkedList<>();
 
     private Queue() {
 
     }
 
-    public static <T>Queue<T> getInstance() {
+    public static <T> Queue<T> getInstance() {
         return instance;
     }
 
-     public void push(T t) {
-         synchronized (list) {
-             list.addLast(t);
-             list.notifyAll();
-         }
-     }
+    public void push(T t) {
+        synchronized (list) {
+            list.addLast(t);
+            list.notifyAll();
+        }
+    }
 
-     public T pop() {
-         synchronized (list) {
-             while (list.isEmpty()) {
-                 try {
-                     list.wait();
-                 } catch (InterruptedException e) {
-                     e.printStackTrace();
-                 }
-             }
-             return list.removeFirst();
-         }
-     }
+    public T pop() {
+        synchronized (list) {
+            while (list.isEmpty()) {
+                try {
+                    list.wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            return list.removeFirst();
+        }
+    }
 
 }

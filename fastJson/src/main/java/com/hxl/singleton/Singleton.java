@@ -9,10 +9,6 @@ public class Singleton {
 
     }
 
-    private static class SingletonInstance {
-        private static final Singleton instance = new Singleton();
-    }
-
     public static Singleton getInstance() {
         return SingletonInstance.instance;
     }
@@ -21,6 +17,10 @@ public class Singleton {
         Singleton instance = Singleton.getInstance();
         Singleton instance1 = Singleton.getInstance();
         System.out.println(instance == instance1);
+    }
+
+    private static class SingletonInstance {
+        private static final Singleton instance = new Singleton();
     }
 
 }

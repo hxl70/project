@@ -40,8 +40,8 @@ public class PdmParser {
             List<Column> columns = new ArrayList<>(columnElements.size());
             //pk
             Element keys = t.element("Keys");
-            String keys_key_id = "",keys_column_ref = "",keys_primarykey_ref_id = "";
-            if(keys!=null){
+            String keys_key_id = "", keys_column_ref = "", keys_primarykey_ref_id = "";
+            if (keys != null) {
                 Element key = keys.element("Key");
                 keys_key_id = key.attributeValue("Id");
                 keys_column_ref = key.element("Key.Columns").element("Column").attributeValue("Ref");
@@ -57,9 +57,9 @@ public class PdmParser {
                 String length = c.elementTextTrim("Length");
                 column.setLength(length == null ? null : Integer.parseInt(length));
                 String type = c.elementTextTrim("DataType");
-                if(type.indexOf("(") >0){
+                if (type.indexOf("(") > 0) {
                     column.setType(type.substring(0, type.indexOf("(")));
-                }else {
+                } else {
                     column.setType(type);
                 }
                 String pkID = c.attributeValue("Id");

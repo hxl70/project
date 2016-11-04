@@ -14,12 +14,11 @@ import java.util.List;
  */
 public class ConstantQuery extends Query<Constant> {
 
+    private String code;
+    private String name;
     public ConstantQuery() {
         super(Sort.Direction.ASC, "code");
     }
-
-    private String code;
-    private String name;
 
     @Override
     public Specification<Constant> getSpecification() {

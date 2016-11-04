@@ -5,6 +5,6 @@ package com.hxl.generator.enumeration;
  */
 public enum FileType {
 
-    ENTITY,SERVICE,SERVICE_IMPL,CONTROLLER;
+    ENTITY, SERVICE, SERVICE_IMPL, CONTROLLER
 
 }

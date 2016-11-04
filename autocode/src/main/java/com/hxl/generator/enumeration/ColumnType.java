@@ -5,6 +5,6 @@ package com.hxl.generator.enumeration;
  */
 public enum ColumnType {
 
-    TEXT,RADIO,CHECKBOX,INPUT,SELECT,TEXTAREA
+    TEXT, RADIO, CHECKBOX, INPUT, SELECT, TEXTAREA
 
 }

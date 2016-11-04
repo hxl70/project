@@ -1,8 +1,8 @@
 package com.hxl;
 
 import com.hxl.generator.Generator;
-import com.hxl.parser.TableConfigParse;
 import com.hxl.parser.PdmParser;
+import com.hxl.parser.TableConfigParse;
 import com.hxl.parser.entity.Table;
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;

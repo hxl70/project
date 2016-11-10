@@ -1,12 +1,19 @@
 #set($className=$table.getClassName())
 #set($fieldName=$table.getFieldName())
 #set($name=$table.getName())
-package ${generatorConfig.getFileConfigByName("serviceImpl").getPath()};
+#set($entityName=${generatorConfig.getByType("entity").getFileName(${className})})
+#set($queryName=${generatorConfig.getByType("query").getFileName(${className})})
+#set($daoName=${generatorConfig.getByType("dao").getFileName(${className})})
+#set($serviceName=${generatorConfig.getByType("service").getFileName(${className})})
+#set($serviceImplName=${generatorConfig.getByType("serviceImpl").getFileName(${className})})
+#set($entityFieldName=${generatorConfig.getByType("entity").getFileName(${fieldName})})
+#set($daoFieldName=${generatorConfig.getByType("dao").getFileName(${fieldName})})
+package ${generatorConfig.getByType("serviceImpl").getClassPackage()};
 
-import ${generatorConfig.getFileConfigByName("dao").getPath()}.${className}Dao;
-import ${generatorConfig.getFileConfigByName("entity").getPath()}.${className};
-import ${generatorConfig.getFileConfigByName("query").getPath()}.${className}Query;
-import ${generatorConfig.getFileConfigByName("service").getPath()}.${className}Service;
+import ${generatorConfig.getByType("dao").getFullName(${className})};
+import ${generatorConfig.getByType("entity").getFullName(${className})};
+import ${generatorConfig.getByType("query").getFullName(${className})};
+import ${generatorConfig.getByType("service").getFullName(${className})};
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -14,40 +21,40 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ${className}ServiceImpl implements ${className}Service {
+public class $serviceImplName implements $serviceName {
 
     @Autowired
-    private ${className}Dao dao;
+    private $daoName $daoFieldName;
 
     @Override
-    public Page<${className}> page(${className}Query query) {
-        return dao.findAll(query.getSpecification(), query.getPageable());
+    public Page<$entityName> page($queryName query) {
+        return ${daoFieldName}.findAll(query.getSpecification(), query.getPageable());
     }
 
     @Override
-    public void save(${className} $fieldName) {
-        dao.save($fieldName);
+    public void save($entityName $entityFieldName) {
+        ${daoFieldName}.save($entityFieldName);
     }
 
     @Override
-    public void update(${className} $fieldName) {
-        ${className} entity = dao.findOne($fieldName.getId());
+    public void update(String id, ${entityName} $entityFieldName) {
+        ${entityName} entity = ${daoFieldName}.findOne(id);
 #foreach($column in $table.getColumns())
 #if($column.isModified())
 #set($columnFieldName=$column.getFieldName())
         entity.$utils.setter($columnFieldName)(${fieldName}.$utils.getter($columnFieldName, $column.getJavaType())());
 #end
 #end
-        dao.save(entity);
+        ${daoFieldName}.save(entity);
     }
 
     @Override
     public void delete(String id) {
-        dao.delete(id);
+        ${daoFieldName}.delete(id);
     }
 
     @Override
-    public ${className} findById(String id) {
-        return dao.findOne(id);
+    public ${entityName} findById(String id) {
+        return ${daoFieldName}.findOne(id);
     }
 }

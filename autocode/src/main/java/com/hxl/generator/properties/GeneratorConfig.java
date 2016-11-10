@@ -1,6 +1,6 @@
 package com.hxl.generator.properties;
 
-import com.hxl.generator.enumeration.FileType;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import java.util.ArrayList;
@@ -16,11 +16,10 @@ public class GeneratorConfig {
 
     private List<FileConfig> configs = new ArrayList<>();
 
-    public FileConfig getFileConfigByName(String name) {
-        return configs.parallelStream().filter((f) -> {
-//            return f.fileType == fileType;
-            return f.name.equals(name);
-        }).findAny().get();
+    public FileConfig getByType(String type) {
+        return configs.parallelStream().filter((f) ->
+            f.type.equals(type)
+        ).findAny().get();
     }
 
     public String getOutputDirectory() {
@@ -42,22 +41,22 @@ public class GeneratorConfig {
     public static class FileConfig {
 
         //类型
-        private FileType fileType;
+        private String type;
         //生成文件的名称
         private String name;
-        //路径
-        private String path;
+        //包
+        private String classPackage;
         //模板路径
         private String template;
         //后缀
         private String ext;
 
-        public FileType getFileType() {
-            return fileType;
+        public String getType() {
+            return type;
         }
 
-        public void setFileType(FileType fileType) {
-            this.fileType = fileType;
+        public void setType(String type) {
+            this.type = type;
         }
 
         public String getName() {
@@ -68,12 +67,12 @@ public class GeneratorConfig {
             this.name = name;
         }
 
-        public String getPath() {
-            return path;
+        public String getClassPackage() {
+            return classPackage;
         }
 
-        public void setPath(String path) {
-            this.path = path;
+        public void setClassPackage(String classPackage) {
+            this.classPackage = classPackage;
         }
 
         public String getTemplate() {
@@ -91,6 +90,22 @@ public class GeneratorConfig {
         public void setExt(String ext) {
             this.ext = ext;
         }
+
+        public String getPath() {
+            return classPackage.replace(".", "/");
+        }
+
+        public String getFileName(String name) {
+            if (StringUtils.isBlank(name)) {
+                return "";
+            }
+            return this.name.replace("${name}", name);
+        }
+
+        public String getFullName(String name) {
+            return classPackage + "." + getFileName(name);
+        }
+
     }
 
 }

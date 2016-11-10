@@ -55,7 +55,7 @@ public class Generator {
                 velocityContext.put("generatorConfig", generatorConfig);
                 velocityContext.put("table", table);
                 velocityContext.put("utils", generatorUtils);
-                String filePath = generatorConfig.getOutputDirectory() + "/" + c.getPath() + "/" + table.getClassName() + c.getExt();
+                String filePath = generatorConfig.getOutputDirectory() + "/" + c.getPath() + "/" + c.getFileName(table.getClassName()) + c.getExt();
                 FileUtils.createFile(filePath);
                 BufferedWriter bw = new BufferedWriter(new FileWriter(filePath));
                 template.merge(velocityContext, bw);

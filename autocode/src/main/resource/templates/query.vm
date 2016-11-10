@@ -1,7 +1,10 @@
 #set($className=$table.getClassName())
-package ${generatorConfig.getFileConfigByName("query").getPath()};
+#set($queryName=${generatorConfig.getByType("query").getFileName(${className})})
+package ${generatorConfig.getByType("query").getClassPackage()};
 
-import ${generatorConfig.getFileConfigByName("entity").getPath()}.$className;
+import ${generatorConfig.getByType("entity").getFullName(${className})};
+import com.hxl.mvc.query.Query;
+
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.util.StringUtils;
@@ -9,11 +12,12 @@ import org.springframework.util.StringUtils;
 import javax.persistence.criteria.Predicate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Date;
 
-public class ${className}Query extends Query<$className> {
+public class $queryName extends Query<$className> {
 
 
-    public ${className}Query() {
+    public ${queryName}() {
         super(Sort.Direction.ASC, "");
     }
 
@@ -25,7 +29,7 @@ public class ${className}Query extends Query<$className> {
 #end
 
     @Override
-    public Specification<Constant> getSpecification() {
+    public Specification<$className> getSpecification() {
         return (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
 #foreach ($column in $columns)

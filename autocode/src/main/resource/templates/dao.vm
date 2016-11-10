@@ -1,8 +1,13 @@
-package ${generatorConfig.getFileConfigByName("dao").getPath()};
+#set($className=${table.getClassName()})
+#set($entityName=${generatorConfig.getByType("entity").getFileName($className)})
+#set($daoName=${generatorConfig.getByType("dao").getFileName($className)})
+package ${generatorConfig.getByType("dao").getClassPackage()};
+
+import ${generatorConfig.getByType("entity").getFullName(${className})};
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
-public interface ${table.getClassName()}Dao extends JpaRepository<${table.getClassName()}, String>, JpaSpecificationExecutor<${table.getClassName()}> {
+public interface ${daoName} extends JpaRepository<${entityName}, String>, JpaSpecificationExecutor<${entityName}> {
 
 }

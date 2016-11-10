@@ -1,35 +1,35 @@
 generator:
   config:
-    outputDirectory: "F:/output/"
+    outputDirectory: "F:/idea_workspace/IdeaProjects/project/mvc/src/main/java/"
     configs:
-      - name: entity
-        fileType: ENTITY
-        path: entity
+      - name: ${name}
+        type: entity
+        classPackage: com.hxl.test.entity
         template: templates/entity.vm
         ext: .java
-      - name: dao
-        fileType: DAO
-        path: dao
+      - name: ${name}Dao
+        type: dao
+        classPackage: com.hxl.test.dao
         template: templates/dao.vm
         ext: .java
-      - name: service
-        fileType: SERVICE
-        path: service
+      - name: ${name}Service
+        type: service
+        classPackage: com.hxl.test.service
         template: templates/service.vm
         ext: .java
-      - name: query
-        fileType: QUERY
-        path: query
+      - name: ${name}Query
+        type: query
+        classPackage: com.hxl.test.query
         template: templates/query.vm
         ext: .java
-      - name: serviceImpl
-        fileType: SERVICE_IMPL
-        path: service.impl
+      - name: ${name}ServiceImpl
+        type: serviceImpl
+        classPackage: com.hxl.test.service.impl
         template: templates/serviceImpl.vm
         ext: .java
-      - name: controller
-        fileType: CONTROLLER
-        path: controller
+      - name: ${name}Controller
+        type: controller
+        classPackage: com.hxl.test.controller
         template: templates/controller.vm
         ext: .java
 

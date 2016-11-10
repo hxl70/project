@@ -1,14 +1,17 @@
 #set($columns=$table.getColumns())
-package ${generatorConfig.getFileConfigByName("entity").getPath()};
+#set($entityName=${generatorConfig.getByType("entity").getFileName($table.getClassName())})
+package ${generatorConfig.getByType("entity").getClassPackage()};
 
+import com.hxl.mvc.entity.AbstractEntity;
 import javax.persistence.*;
+import java.util.Date;
 
 /**
 * ${table.getName()}
 */
 @Entity
 @Table(name = "${table.getCode()}")
-public class $table.getClassName() extends AbstractBasePersistable {
+public class $entityName extends AbstractEntity {
 #foreach ($column in $columns)
 
 #if(!$column.isPkFlag())

@@ -1,21 +1,32 @@
 #set($className=$table.getClassName())
 #set($name=$table.getName())
 #set($fieldName=$table.getFieldName())
-package ${generatorConfig.getFileConfigByName("service").getPath()};
+#set($entityName=${generatorConfig.getByType("entity").getFileName(${className})})
+#set($queryName=${generatorConfig.getByType("query").getFileName(${className})})
+#set($serviceName=${generatorConfig.getByType("service").getFileName(${className})})
+#set($entityFieldName=${generatorConfig.getByType("entity").getFileName(${fieldName})})
+package ${generatorConfig.getByType("service").getClassPackage()};
 
-import ${generatorConfig.getFileConfigByName("entity").getPath()}.$className;
-import ${generatorConfig.getFileConfigByName("query").getPath()}.${className}Query;
+import ${generatorConfig.getByType("entity").getFullName(${className})};
+import ${generatorConfig.getByType("query").getFullName(${className})};
 import org.springframework.data.domain.Page;
 
 import java.util.List;
 
-public interface ${className}Service {
+public interface $serviceName {
 
     /**
     * 保存 $name
-    * @param $fieldName $name
+    * @param $entityFieldName $name
     */
-    void save(LinkType $fieldName);
+    void save($entityName $entityFieldName);
+
+    /**
+    * 更新 $name
+    * @param id $name 主键
+    * @param $entityFieldName $name
+    */
+    void update(String id, $entityName $entityFieldName);
 
     /**
     * 根据主键删除 $name
@@ -24,23 +35,17 @@ public interface ${className}Service {
     void delete(String id);
 
     /**
-    * 获取 $name
-    * @return $className list
-    */
-    List<$className> findAll();
-
-    /**
     * 根据主键查询 $name
     * @param id $name 主键
     * @return $name
     */
-    $className findById(String id);
+    $entityName findById(String id);
 
     /**
     * $name 分页查询
     * @param query $name 查询参数
     * @return 分页数据
     */
-    Page<$className> page(${className}Query query);
+    Page<$entityName> page(${queryName} query);
 
 }

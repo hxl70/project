@@ -7,10 +7,20 @@ generator:
         path: entity
         template: templates/entity.vm
         ext: .java
+      - name: dao
+        fileType: DAO
+        path: dao
+        template: templates/dao.vm
+        ext: .java
       - name: service
         fileType: SERVICE
         path: service
         template: templates/service.vm
+        ext: .java
+      - name: query
+        fileType: QUERY
+        path: query
+        template: templates/query.vm
         ext: .java
       - name: serviceImpl
         fileType: SERVICE_IMPL

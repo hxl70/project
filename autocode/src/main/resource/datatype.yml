@@ -11,3 +11,7 @@ dataType:
       sqlType: bit
     - javaType: String
       sqlType: text
+    - javaType: String
+      sqlType: mediumtext
+    - javaType: Float
+      sqlType: float

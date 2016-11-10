@@ -1,0 +1,64 @@
+#set($className=$table.getClassName())
+package ${generatorConfig.getFileConfigByName("query").getPath()};
+
+import ${generatorConfig.getFileConfigByName("entity").getPath()}.$className;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.util.StringUtils;
+
+import javax.persistence.criteria.Predicate;
+import java.util.ArrayList;
+import java.util.List;
+
+public class ${className}Query extends Query<$className> {
+
+
+    public ${className}Query() {
+        super(Sort.Direction.ASC, "");
+    }
+
+#set($columns=$table.getColumns())
+#foreach ($column in $columns)
+#if($column.isSearched())
+    private $column.getJavaType() $column.getFieldName();
+#end
+#end
+
+    @Override
+    public Specification<Constant> getSpecification() {
+        return (root, query, cb) -> {
+            List<Predicate> predicates = new ArrayList<>();
+#foreach ($column in $columns)
+#if($column.isSearched())
+#set($code = $column.getFieldName())
+#set($type = $column.getJavaType())
+#if($type == "String")
+            if (!StringUtils.isEmpty($code)) {
+                predicates.add(cb.like(root.get("$code"), "%" + $code + "%"));
+            }
+#else
+            if ($code != null) {
+                predicates.add(cb.equal(root.get("$code"), $code));
+            }
+#end
+#end
+#end
+            return cb.and(predicates.toArray(new Predicate[predicates.size()]));
+        };
+    }
+
+#foreach ($column in $columns)
+#if($column.isSearched())
+#set($code = $column.getFieldName())
+#set($type = $column.getJavaType())
+        public $type $utils.getter($code, $type)() {
+            return $code;
+        }
+
+        public void $utils.setter($code)($type $code) {
+            this.$code = $code;
+        }
+
+#end
+#end
+}

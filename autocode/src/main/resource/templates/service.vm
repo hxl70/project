@@ -1,1 +1,46 @@
------------${key}--------------
+#set($className=$table.getClassName())
+#set($name=$table.getName())
+#set($fieldName=$table.getFieldName())
+package ${generatorConfig.getFileConfigByName("service").getPath()};
+
+import ${generatorConfig.getFileConfigByName("entity").getPath()}.$className;
+import ${generatorConfig.getFileConfigByName("query").getPath()}.${className}Query;
+import org.springframework.data.domain.Page;
+
+import java.util.List;
+
+public interface ${className}Service {
+
+    /**
+    * 保存 $name
+    * @param $fieldName $name
+    */
+    void save(LinkType $fieldName);
+
+    /**
+    * 根据主键删除 $name
+    * @param id $name 主键
+    */
+    void delete(String id);
+
+    /**
+    * 获取 $name
+    * @return $className list
+    */
+    List<$className> findAll();
+
+    /**
+    * 根据主键查询 $name
+    * @param id $name 主键
+    * @return $name
+    */
+    $className findById(String id);
+
+    /**
+    * $name 分页查询
+    * @param query $name 查询参数
+    * @return 分页数据
+    */
+    Page<$className> page(${className}Query query);
+
+}

@@ -16,9 +16,10 @@ public class GeneratorConfig {
 
     private List<FileConfig> configs = new ArrayList<>();
 
-    public FileConfig getFileConfigByType(FileType fileType) {
+    public FileConfig getFileConfigByName(String name) {
         return configs.parallelStream().filter((f) -> {
-            return f.fileType == fileType;
+//            return f.fileType == fileType;
+            return f.name.equals(name);
         }).findAny().get();
     }
 
@@ -40,10 +41,15 @@ public class GeneratorConfig {
 
     public static class FileConfig {
 
+        //类型
         private FileType fileType;
+        //生成文件的名称
         private String name;
+        //路径
         private String path;
+        //模板路径
         private String template;
+        //后缀
         private String ext;
 
         public FileType getFileType() {

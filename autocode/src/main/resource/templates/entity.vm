@@ -1,1 +1,43 @@
------------${key}--------------
+#set($columns=$table.getColumns())
+package ${generatorConfig.getFileConfigByName("entity").getPath()};
+
+import javax.persistence.*;
+
+/**
+* ${table.getName()}
+*/
+@Entity
+@Table(name = "${table.getCode()}")
+public class $table.getClassName() extends AbstractBasePersistable {
+#foreach ($column in $columns)
+
+#if(!$column.isPkFlag())
+    /*
+    * $column.getName();
+    */
+#set($columnType = $column.getJavaType())
+#if($columnType == "Date")
+    @Temporal(TemporalType.TIMESTAMP)
+#end
+#if($columnType == "String")
+    @Column(length = $column.getLength())
+#end
+    private $columnType $column.getFieldName();
+#end
+#end
+
+#foreach ($column in $columns)
+#if(!$column.isPkFlag())
+#set($code = $column.getFieldName())
+#set($type = $column.getJavaType())
+    public $type $utils.getter($code, $type)() {
+        return $code;
+    }
+
+    public void $utils.setter($code)($type $code) {
+        this.$code = $code;
+    }
+
+#end
+#end
+}

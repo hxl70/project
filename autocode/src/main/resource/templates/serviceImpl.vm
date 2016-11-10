@@ -1,1 +1,53 @@
------------${key}--------------
+#set($className=$table.getClassName())
+#set($fieldName=$table.getFieldName())
+#set($name=$table.getName())
+package ${generatorConfig.getFileConfigByName("serviceImpl").getPath()};
+
+import ${generatorConfig.getFileConfigByName("dao").getPath()}.${className}Dao;
+import ${generatorConfig.getFileConfigByName("entity").getPath()}.${className};
+import ${generatorConfig.getFileConfigByName("query").getPath()}.${className}Query;
+import ${generatorConfig.getFileConfigByName("service").getPath()}.${className}Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class ${className}ServiceImpl implements ${className}Service {
+
+    @Autowired
+    private ${className}Dao dao;
+
+    @Override
+    public Page<${className}> page(${className}Query query) {
+        return dao.findAll(query.getSpecification(), query.getPageable());
+    }
+
+    @Override
+    public void save(${className} $fieldName) {
+        dao.save($fieldName);
+    }
+
+    @Override
+    public void update(${className} $fieldName) {
+        ${className} entity = dao.findOne($fieldName.getId());
+#foreach($column in $table.getColumns())
+#if($column.isModified())
+#set($columnFieldName=$column.getFieldName())
+        entity.$utils.setter($columnFieldName)(${fieldName}.$utils.getter($columnFieldName, $column.getJavaType())());
+#end
+#end
+        dao.save(entity);
+    }
+
+    @Override
+    public void delete(String id) {
+        dao.delete(id);
+    }
+
+    @Override
+    public ${className} findById(String id) {
+        return dao.findOne(id);
+    }
+}

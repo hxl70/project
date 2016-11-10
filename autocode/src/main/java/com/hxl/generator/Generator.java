@@ -1,9 +1,9 @@
 package com.hxl.generator;
 
-import com.hxl.generator.config.TableConfig;
-import com.hxl.generator.properties.DataTypes;
 import com.hxl.generator.properties.GeneratorConfig;
+import com.hxl.parser.entity.Table;
 import com.hxl.utils.FileUtils;
+import com.hxl.utils.GeneratorUtils;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
@@ -18,17 +18,18 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
+
 /**
  * Created by hxl on 2016/9/5.
  */
 @Component
-@EnableConfigurationProperties(value = {GeneratorConfig.class, DataTypes.class})
+@EnableConfigurationProperties(value = {GeneratorConfig.class})
 public class Generator {
 
     @Autowired
     private GeneratorConfig generatorConfig;
     @Autowired
-    private DataTypes dataTypes;
+    private GeneratorUtils generatorUtils;
 
     private VelocityEngine velocityEngine;
 
@@ -36,22 +37,25 @@ public class Generator {
         velocityEngine = new VelocityEngine();
         velocityEngine.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
         velocityEngine.setProperty("classpath.resource.loader.class", ClasspathResourceLoader.class.getName());
+        velocityEngine.setProperty(RuntimeConstants.INPUT_ENCODING, "utf-8");
+        velocityEngine.setProperty(RuntimeConstants.OUTPUT_ENCODING, "utf-8");
         velocityEngine.init();
     }
 
-    public void generator(List<TableConfig> tableConfigs) {
-        tableConfigs.parallelStream().forEach(this::generator);
+    public void generator(List<Table> tables) {
+        tables.parallelStream().forEach(this::generator);
     }
 
-    public void generator(TableConfig tableConfig) {
+    public void generator(Table table) {
         generatorConfig.getConfigs().parallelStream().forEach(c -> {
             try {
                 Template template = velocityEngine.getTemplate(c.getTemplate());
                 VelocityContext velocityContext = new VelocityContext();
+                table.generate(generatorUtils);
                 velocityContext.put("generatorConfig", generatorConfig);
-                velocityContext.put("dataTypes", dataTypes);
-                velocityContext.put("tableConfig", tableConfig);
-                String filePath = generatorConfig.getOutputDirectory() + "/" + c.getPath() + "/" + tableConfig.getTable().getCode() + c.getExt();
+                velocityContext.put("table", table);
+                velocityContext.put("utils", generatorUtils);
+                String filePath = generatorConfig.getOutputDirectory() + "/" + c.getPath() + "/" + table.getClassName() + c.getExt();
                 FileUtils.createFile(filePath);
                 BufferedWriter bw = new BufferedWriter(new FileWriter(filePath));
                 template.merge(velocityContext, bw);

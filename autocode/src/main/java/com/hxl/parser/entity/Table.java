@@ -1,5 +1,7 @@
 package com.hxl.parser.entity;
 
+import com.hxl.utils.GeneratorUtils;
+
 import java.util.List;
 
 /**
@@ -12,6 +14,19 @@ public class Table {
     private String code;
     private Column pkColumn;
     private List<Column> columns;
+
+    private boolean created = true;
+    private boolean modified = true;
+    private boolean deleted = true;
+    private boolean searched = true;
+    private String className;
+    private String fieldName;
+
+    public void generate(GeneratorUtils utils) {
+        className = utils.getClassName(this.getCode());
+        fieldName = utils.getFieldName(this.getCode());
+        columns.parallelStream().forEach(column -> column.generate(utils));
+    }
 
     public String getName() {
         return name;
@@ -45,4 +60,51 @@ public class Table {
         this.columns = columns;
     }
 
+    public boolean isCreated() {
+        return created;
+    }
+
+    public void setCreated(boolean created) {
+        this.created = created;
+    }
+
+    public boolean isModified() {
+        return modified;
+    }
+
+    public void setModified(boolean modified) {
+        this.modified = modified;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
+
+    public boolean isSearched() {
+        return searched;
+    }
+
+    public void setSearched(boolean searched) {
+        this.searched = searched;
+    }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
+    public String getFieldName() {
+        return fieldName;
+    }
+
+    public void setFieldName(String fieldName) {
+        this.fieldName = fieldName;
+    }
 }

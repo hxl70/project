@@ -1,9 +1,8 @@
-#set($className=${table.getClassName()})
-#set($entityName=${generatorConfig.getByType("entity").getFileName($className)})
-#set($daoName=${generatorConfig.getByType("dao").getFileName($className)})
-package ${generatorConfig.getByType("dao").getClassPackage()};
+#set($entityName=${utils.getName("entity")})
+#set($daoName=${utils.getName("dao")})
+package ${utils.getClassPackage("dao")};
 
-import ${generatorConfig.getByType("entity").getFullName(${className})};
+import ${utils.getFullName("entity")};
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;

@@ -1,14 +1,12 @@
-#set($className=$table.getClassName())
 #set($name=$table.getName())
-#set($fieldName=$table.getFieldName())
-#set($entityName=${generatorConfig.getByType("entity").getFileName(${className})})
-#set($queryName=${generatorConfig.getByType("query").getFileName(${className})})
-#set($serviceName=${generatorConfig.getByType("service").getFileName(${className})})
-#set($entityFieldName=${generatorConfig.getByType("entity").getFileName(${fieldName})})
-package ${generatorConfig.getByType("service").getClassPackage()};
+#set($entityName=${utils.getName("entity")})
+#set($queryName=${utils.getName("query")})
+#set($serviceName=${utils.getName("service")})
+#set($entityFieldName=${utils.getField("entity")})
+package ${utils.getClassPackage("service")};
 
-import ${generatorConfig.getByType("entity").getFullName(${className})};
-import ${generatorConfig.getByType("query").getFullName(${className})};
+import ${utils.getFullName("entity")};
+import ${utils.getFullName("query")};
 import org.springframework.data.domain.Page;
 
 import java.util.List;

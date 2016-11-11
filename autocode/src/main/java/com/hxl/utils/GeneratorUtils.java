@@ -1,6 +1,8 @@
 package com.hxl.utils;
 
 import com.hxl.generator.properties.DataTypes;
+import com.hxl.generator.properties.GeneratorConfig;
+import com.hxl.parser.entity.Table;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,14 +12,13 @@ import org.springframework.stereotype.Component;
 /**
  * Created by hxl on 2016/10/18.
  */
-@Component
-@EnableConfigurationProperties(value = {DataTypes.class})
 public class GeneratorUtils {
 
     private Logger logger = LoggerFactory.getLogger(GeneratorUtils.class);
 
-    @Autowired
     private DataTypes dataTypes;
+    private GeneratorConfig generatorConfig;
+    private Table table;
 
     public String getJavaType(String sqlType) {
         try {
@@ -65,4 +66,43 @@ public class GeneratorUtils {
         return "set" + code.substring(0, 1).toUpperCase() + code.substring(1);
     }
 
+    public Table getTable() {
+        return table;
+    }
+
+    public void setTable(Table table) {
+        this.table = table;
+    }
+
+    public String getFullName(String type) {
+        return generatorConfig.getByType(type).getFullName(table.getClassName());
+    }
+
+    public String getName(String type) {
+        return generatorConfig.getByType(type).getFileName(table.getClassName());
+    }
+
+    public String getField(String type) {
+        return generatorConfig.getByType(type).getFileName(table.getFieldName());
+    }
+
+    public String getClassPackage(String type) {
+        return generatorConfig.getByType(type).getClassPackage();
+    }
+
+    public DataTypes getDataTypes() {
+        return dataTypes;
+    }
+
+    public void setDataTypes(DataTypes dataTypes) {
+        this.dataTypes = dataTypes;
+    }
+
+    public GeneratorConfig getGeneratorConfig() {
+        return generatorConfig;
+    }
+
+    public void setGeneratorConfig(GeneratorConfig generatorConfig) {
+        this.generatorConfig = generatorConfig;
+    }
 }

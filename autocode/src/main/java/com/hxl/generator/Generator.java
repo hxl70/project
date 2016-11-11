@@ -1,5 +1,6 @@
 package com.hxl.generator;
 
+import com.hxl.generator.properties.DataTypes;
 import com.hxl.generator.properties.GeneratorConfig;
 import com.hxl.parser.entity.Table;
 import com.hxl.utils.FileUtils;
@@ -23,13 +24,13 @@ import java.util.List;
  * Created by hxl on 2016/9/5.
  */
 @Component
-@EnableConfigurationProperties(value = {GeneratorConfig.class})
+@EnableConfigurationProperties(value = {GeneratorConfig.class, DataTypes.class})
 public class Generator {
 
     @Autowired
     private GeneratorConfig generatorConfig;
     @Autowired
-    private GeneratorUtils generatorUtils;
+    private DataTypes dataTypes;
 
     private VelocityEngine velocityEngine;
 
@@ -51,10 +52,13 @@ public class Generator {
             try {
                 Template template = velocityEngine.getTemplate(c.getTemplate());
                 VelocityContext velocityContext = new VelocityContext();
-                table.generate(generatorUtils);
-                velocityContext.put("generatorConfig", generatorConfig);
+                GeneratorUtils utils = new GeneratorUtils();
+                utils.setTable(table);
+                utils.setDataTypes(dataTypes);
+                utils.setGeneratorConfig(generatorConfig);
+                table.generate(utils);
                 velocityContext.put("table", table);
-                velocityContext.put("utils", generatorUtils);
+                velocityContext.put("utils", utils);
                 String filePath = generatorConfig.getOutputDirectory() + "/" + c.getPath() + "/" + c.getFileName(table.getClassName()) + c.getExt();
                 FileUtils.createFile(filePath);
                 BufferedWriter bw = new BufferedWriter(new FileWriter(filePath));

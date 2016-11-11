@@ -1,18 +1,15 @@
-#set($className=$table.getClassName())
-#set($fieldName=$table.getFieldName())
-#set($entityName=${generatorConfig.getByType("entity").getFileName(${className})})
-#set($queryName=${generatorConfig.getByType("query").getFileName(${className})})
-#set($daoName=${generatorConfig.getByType("dao").getFileName(${className})})
-#set($controllerName=${generatorConfig.getByType("controller").getFileName(${className})})
-#set($serviceName=${generatorConfig.getByType("service").getFileName(${className})})
-#set($serviceImplName=${generatorConfig.getByType("serviceImpl").getFileName(${className})})
-#set($entityFieldName=${generatorConfig.getByType("entity").getFileName(${fieldName})})
-#set($serviceFieldName=${generatorConfig.getByType("service").getFileName(${fieldName})})
-package ${generatorConfig.getByType("controller").getClassPackage()};
+#set($entityName=${utils.getName("entity")})
+#set($queryName=${utils.getName("query")})
+#set($controllerName=${utils.getName("controller")})
+#set($serviceName=${utils.getName("service")})
+#set($serviceImplName=${utils.getName("serviceImpl")})
+#set($entityFieldName=${utils.getField("entity")})
+#set($serviceFieldName=${utils.getField("service")})
+package ${utils.getClassPackage("controller")};
 
-import ${generatorConfig.getByType("entity").getFullName(${className})};
-import ${generatorConfig.getByType("query").getFullName(${className})};
-import ${generatorConfig.getByType("service").getFullName(${className})};
+import ${utils.getFullName("entity")};
+import ${utils.getFullName("query")};
+import ${utils.getFullName("service")};
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;

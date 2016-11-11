@@ -1,19 +1,16 @@
-#set($className=$table.getClassName())
-#set($fieldName=$table.getFieldName())
-#set($name=$table.getName())
-#set($entityName=${generatorConfig.getByType("entity").getFileName(${className})})
-#set($queryName=${generatorConfig.getByType("query").getFileName(${className})})
-#set($daoName=${generatorConfig.getByType("dao").getFileName(${className})})
-#set($serviceName=${generatorConfig.getByType("service").getFileName(${className})})
-#set($serviceImplName=${generatorConfig.getByType("serviceImpl").getFileName(${className})})
-#set($entityFieldName=${generatorConfig.getByType("entity").getFileName(${fieldName})})
-#set($daoFieldName=${generatorConfig.getByType("dao").getFileName(${fieldName})})
-package ${generatorConfig.getByType("serviceImpl").getClassPackage()};
+#set($entityName=${utils.getName("entity")})
+#set($queryName=${utils.getName("query")})
+#set($daoName=${utils.getName("dao")})
+#set($serviceName=${utils.getName("service")})
+#set($serviceImplName=${utils.getName("serviceImpl")})
+#set($entityFieldName=${utils.getField("entity")})
+#set($daoFieldName=${utils.getField("dao")})
+package ${utils.getClassPackage("serviceImpl")};
 
-import ${generatorConfig.getByType("dao").getFullName(${className})};
-import ${generatorConfig.getByType("entity").getFullName(${className})};
-import ${generatorConfig.getByType("query").getFullName(${className})};
-import ${generatorConfig.getByType("service").getFullName(${className})};
+import ${utils.getFullName("dao")};
+import ${utils.getFullName("entity")};
+import ${utils.getFullName("query")};
+import ${utils.getFullName("service")};
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -42,7 +39,7 @@ public class $serviceImplName implements $serviceName {
 #foreach($column in $table.getColumns())
 #if($column.isModified())
 #set($columnFieldName=$column.getFieldName())
-        entity.$utils.setter($columnFieldName)(${fieldName}.$utils.getter($columnFieldName, $column.getJavaType())());
+        entity.$utils.setter($columnFieldName)(${entityFieldName}.$utils.getter($columnFieldName, $column.getJavaType())());
 #end
 #end
         ${daoFieldName}.save(entity);

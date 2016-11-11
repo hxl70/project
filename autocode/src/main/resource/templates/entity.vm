@@ -1,6 +1,6 @@
 #set($columns=$table.getColumns())
-#set($entityName=${generatorConfig.getByType("entity").getFileName($table.getClassName())})
-package ${generatorConfig.getByType("entity").getClassPackage()};
+#set($entityName=${utils.getName("entity")})
+package ${utils.getClassPackage("entity")};
 
 import com.hxl.mvc.entity.AbstractEntity;
 import javax.persistence.*;

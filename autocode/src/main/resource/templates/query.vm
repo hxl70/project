@@ -1,8 +1,8 @@
-#set($className=$table.getClassName())
-#set($queryName=${generatorConfig.getByType("query").getFileName(${className})})
-package ${generatorConfig.getByType("query").getClassPackage()};
+#set($queryName=${utils.getName("query")})
+#set($entityName=${utils.getName("entity")})
+package ${utils.getClassPackage("query")};
 
-import ${generatorConfig.getByType("entity").getFullName(${className})};
+import ${utils.getFullName("entity")};
 import com.hxl.mvc.query.Query;
 
 import org.springframework.data.domain.Sort;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
 
-public class $queryName extends Query<$className> {
+public class $queryName extends Query<$entityName> {
 
 
     public ${queryName}() {
@@ -29,7 +29,7 @@ public class $queryName extends Query<$className> {
 #end
 
     @Override
-    public Specification<$className> getSpecification() {
+    public Specification<$entityName> getSpecification() {
         return (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
 #foreach ($column in $columns)

@@ -3,7 +3,7 @@
 #set($queryName=${utils.getName("query")})
 #set($serviceName=${utils.getName("service")})
 #set($entityFieldName=${utils.getField("entity")})
-package ${utils.getClassPackage("service")};
+package ${utils.getPackage("service")};
 
 import ${utils.getFullName("entity")};
 import ${utils.getFullName("query")};

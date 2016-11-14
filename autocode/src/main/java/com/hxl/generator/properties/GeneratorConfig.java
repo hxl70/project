@@ -1,6 +1,5 @@
 package com.hxl.generator.properties;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import java.util.ArrayList;
@@ -12,22 +11,47 @@ import java.util.List;
 @ConfigurationProperties(prefix = "generator.config", locations = "classpath:/generator.yml")
 public class GeneratorConfig {
 
-    private String outputDirectory;
-
+    //项目路径
+    private String projectDirectory;
+    //java源码路径
+    private String sourceDirectory;
+    //test路径
+    private String testDirectory;
+    //view路径
+    private String viewDirectory;
+    //文件配置
     private List<FileConfig> configs = new ArrayList<>();
 
-    public FileConfig getByType(String type) {
-        return configs.parallelStream().filter((f) ->
-            f.type.equals(type)
-        ).findAny().get();
+    public String getProjectDirectory() {
+        return projectDirectory;
     }
 
-    public String getOutputDirectory() {
-        return outputDirectory;
+    public void setProjectDirectory(String projectDirectory) {
+        this.projectDirectory = projectDirectory;
     }
 
-    public void setOutputDirectory(String outputDirectory) {
-        this.outputDirectory = outputDirectory;
+    public String getSourceDirectory() {
+        return sourceDirectory;
+    }
+
+    public void setSourceDirectory(String sourceDirectory) {
+        this.sourceDirectory = sourceDirectory;
+    }
+
+    public String getTestDirectory() {
+        return testDirectory;
+    }
+
+    public void setTestDirectory(String testDirectory) {
+        this.testDirectory = testDirectory;
+    }
+
+    public String getViewDirectory() {
+        return viewDirectory;
+    }
+
+    public void setViewDirectory(String viewDirectory) {
+        this.viewDirectory = viewDirectory;
     }
 
     public List<FileConfig> getConfigs() {
@@ -44,8 +68,8 @@ public class GeneratorConfig {
         private String type;
         //生成文件的名称
         private String name;
-        //包
-        private String classPackage;
+        //路径
+        private String path;
         //模板路径
         private String template;
         //后缀
@@ -67,12 +91,12 @@ public class GeneratorConfig {
             this.name = name;
         }
 
-        public String getClassPackage() {
-            return classPackage;
+        public String getPath() {
+            return path;
         }
 
-        public void setClassPackage(String classPackage) {
-            this.classPackage = classPackage;
+        public void setPath(String path) {
+            this.path = path;
         }
 
         public String getTemplate() {
@@ -90,22 +114,6 @@ public class GeneratorConfig {
         public void setExt(String ext) {
             this.ext = ext;
         }
-
-        public String getPath() {
-            return classPackage.replace(".", "/");
-        }
-
-        public String getFileName(String name) {
-            if (StringUtils.isBlank(name)) {
-                return "";
-            }
-            return this.name.replace("${name}", name);
-        }
-
-        public String getFullName(String name) {
-            return classPackage + "." + getFileName(name);
-        }
-
     }
 
 }

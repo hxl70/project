@@ -5,7 +5,7 @@
 #set($serviceImplName=${utils.getName("serviceImpl")})
 #set($entityFieldName=${utils.getField("entity")})
 #set($daoFieldName=${utils.getField("dao")})
-package ${utils.getClassPackage("serviceImpl")};
+package ${utils.getPackage("serviceImpl")};
 
 import ${utils.getFullName("dao")};
 import ${utils.getFullName("entity")};

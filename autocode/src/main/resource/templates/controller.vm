@@ -5,7 +5,7 @@
 #set($serviceImplName=${utils.getName("serviceImpl")})
 #set($entityFieldName=${utils.getField("entity")})
 #set($serviceFieldName=${utils.getField("service")})
-package ${utils.getClassPackage("controller")};
+package ${utils.getPackage("controller")};
 
 import ${utils.getFullName("entity")};
 import ${utils.getFullName("query")};

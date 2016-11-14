@@ -52,16 +52,12 @@ public class Generator {
             try {
                 Template template = velocityEngine.getTemplate(c.getTemplate());
                 VelocityContext velocityContext = new VelocityContext();
-                GeneratorUtils utils = new GeneratorUtils();
-                utils.setTable(table);
-                utils.setDataTypes(dataTypes);
-                utils.setGeneratorConfig(generatorConfig);
-                table.generate(utils);
+                GeneratorUtils utils = new GeneratorUtils(dataTypes, generatorConfig, table);
                 velocityContext.put("table", table);
                 velocityContext.put("utils", utils);
-                String filePath = generatorConfig.getOutputDirectory() + "/" + c.getPath() + "/" + c.getFileName(table.getClassName()) + c.getExt();
-                FileUtils.createFile(filePath);
-                BufferedWriter bw = new BufferedWriter(new FileWriter(filePath));
+                String file = utils.getFullPath(c);
+                FileUtils.createFile(file);
+                BufferedWriter bw = new BufferedWriter(new FileWriter(file));
                 template.merge(velocityContext, bw);
                 bw.flush();
                 bw.close();

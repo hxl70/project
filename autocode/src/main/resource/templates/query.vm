@@ -1,6 +1,6 @@
 #set($queryName=${utils.getName("query")})
 #set($entityName=${utils.getName("entity")})
-package ${utils.getClassPackage("query")};
+package ${utils.getPackage("query")};
 
 import ${utils.getFullName("entity")};
 import com.hxl.mvc.query.Query;

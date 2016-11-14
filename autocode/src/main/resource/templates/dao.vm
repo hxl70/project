@@ -1,6 +1,6 @@
 #set($entityName=${utils.getName("entity")})
 #set($daoName=${utils.getName("dao")})
-package ${utils.getClassPackage("dao")};
+package ${utils.getPackage("dao")};
 
 import ${utils.getFullName("entity")};
 

@@ -1,37 +1,50 @@
 generator:
   config:
-    outputDirectory: "F:/idea_workspace/IdeaProjects/project/mvc/src/main/java/"
+    projectDirectory: "F:/idea_workspace/IdeaProjects/project/mvc/"
+    sourceDirectory: "src/main/java/"
+    testDirectory: "src/main/test/"
+    viewDirectory: "src/main/webapp/"
     configs:
-      - name: ${name}
-        type: entity
-        classPackage: com.hxl.test.entity
+      - name: entity
+        type: source
+        path: com/hxl/test/entity
         template: templates/entity.vm
         ext: .java
-      - name: ${name}Dao
-        type: dao
-        classPackage: com.hxl.test.dao
+      - name: dao
+        type: source
+        path: com/hxl/test/dao
         template: templates/dao.vm
         ext: .java
-      - name: ${name}Service
-        type: service
-        classPackage: com.hxl.test.service
+      - name: service
+        type: source
+        path: com/hxl/test/service
         template: templates/service.vm
         ext: .java
-      - name: ${name}Query
-        type: query
-        classPackage: com.hxl.test.query
+      - name: query
+        type: source
+        path: com/hxl/test/query
         template: templates/query.vm
         ext: .java
-      - name: ${name}ServiceImpl
-        type: serviceImpl
-        classPackage: com.hxl.test.service.impl
+      - name: serviceImpl
+        type: source
+        path: com/hxl/test/service/impl
         template: templates/serviceImpl.vm
         ext: .java
-      - name: ${name}Controller
-        type: controller
-        classPackage: com.hxl.test.controller
+      - name: controller
+        type: source
+        path: com/hxl/test/controller
         template: templates/controller.vm
         ext: .java
+      - name: list
+        type: view
+        path: view
+        template: templates/list.vm
+        ext: .html
+      - name: edit
+        type: view
+        path: view
+        template: templates/edit.vm
+        ext: .html
 
 
 

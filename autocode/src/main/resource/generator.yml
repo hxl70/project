@@ -3,7 +3,7 @@ generator:
     projectDirectory: "F:/idea_workspace/IdeaProjects/project/mvc/"
     sourceDirectory: "src/main/java/"
     testDirectory: "src/main/test/"
-    viewDirectory: "src/main/webapp/"
+    viewDirectory: "src/main/webapp/WEB-INF/tiles/"
     configs:
       - name: entity
         type: source

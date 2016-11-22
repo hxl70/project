@@ -1,7 +1,5 @@
 package com.hxl.wx.service;
 
-import com.hxl.wx.entity.WXInfo;
-
 /**
  * Created by hxl on 2016/11/18.
  * access_token是公众号的全局唯一票据，
@@ -15,20 +13,8 @@ import com.hxl.wx.entity.WXInfo;
  * 旧的access_token在5分钟内仍能使用，
  * 以确保第三方在更新access_token时不会发生第三方调用微信api的失败。
  */
-public class AccessTokenService {
+public interface AccessTokenService {
 
-    private static String url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s";
-
-    public void setAccessToken() {
-        String accessToken = HttpsService.get(String.format(url, WXInfo.APP_ID, WXInfo.APP_SECRET));
-        WXInfo.ACCESS_TOKEN = accessToken;
-        System.out.println("set accessToken : " + accessToken);
-    }
-
-
-    public static void main(String[] args) {
-        AccessTokenService service = new AccessTokenService();
-        service.setAccessToken();
-    }
+    void setAccessToken();
 
 }

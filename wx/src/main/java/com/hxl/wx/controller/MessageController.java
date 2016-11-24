@@ -1,16 +1,20 @@
 package com.hxl.wx.controller;
 
-import com.hxl.wx.entity.WXInfo;
+import com.hxl.wx.entity.*;
+import com.hxl.wx.entity.message.*;
+import com.hxl.wx.entity.reply.ReplyMessage;
 import com.hxl.wx.handler.EventHandler;
 import com.hxl.wx.handler.MessageHandler;
 import com.hxl.wx.utils.XmlUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
@@ -20,6 +24,8 @@ import java.util.Map;
 @Controller
 public class MessageController {
 
+    private Logger logger = LoggerFactory.getLogger(MessageController.class);
+
     @Autowired
     private EventHandler eventHandler;
     @Autowired
@@ -27,35 +33,51 @@ public class MessageController {
 
     /**
      * 消息处理
-     * @param request
+     * @param requestBody
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = WXInfo.WX_URI, method = RequestMethod.POST)
-    public String message(HttpServletRequest request) {
-        Map<String, String> map = XmlUtils.parseRequestBody(request);
-        System.out.println(map);
+    @RequestMapping(value = WXConfig.WX_URI, method = RequestMethod.POST)
+    public String message(@RequestBody String requestBody) {
+        Map<String, String> map = XmlUtils.parseRequestBody(requestBody);
+        logger.info(requestBody);
         String type = map.get("MsgType");
+        ReplyMessage result = null;
         switch (type) {
             case "event":
-                return handlerEvent(map);
+                result = handlerEvent(requestBody, map);
+                break;
             case "text":
-                return messageHandler.handlerText(map);
+                result = messageHandler.handlerText(XmlUtils.toBean(requestBody, TextMessage.class));
+                break;
             case "image":
-                return messageHandler.handlerImage(map);
+                result = messageHandler.handlerImage(XmlUtils.toBean(requestBody, ImageMessage.class));
+                break;
             case "voice":
-                return messageHandler.handlerVoice(map);
+                result = messageHandler.handlerVoice(XmlUtils.toBean(requestBody, VoiceMessage.class));
+                break;
             case "video":
-                return messageHandler.handlerVideo(map);
+                result = messageHandler.handlerVideo(XmlUtils.toBean(requestBody, VideoMessage.class));
+                break;
             case "shortvideo":
-                return messageHandler.handlerShortVideo(map);
+                result = messageHandler.handlerShortVideo(XmlUtils.toBean(requestBody, ShortVideoMessage.class));
+                break;
             case "location":
-                return messageHandler.handlerLocation(map);
+                result = messageHandler.handlerLocation(XmlUtils.toBean(requestBody, LocationMessage.class));
+                break;
             case "link":
-                return messageHandler.handlerLink(map);
+                result = messageHandler.handlerLink(XmlUtils.toBean(requestBody, LinkMessage.class));
+                break;
+            default:
+                logger.error("unknow type " + type);
         }
-
-        return null;
+        if (result == null) {
+            logger.info("return null");
+            return "";
+        }
+        String marshal = XmlUtils.marshal(result);
+        logger.info("return {}", marshal);
+        return marshal;
     }
 
     /**
@@ -63,21 +85,23 @@ public class MessageController {
      * @param map
      * @return
      */
-    private String handlerEvent(Map<String, String> map) {
+    private ReplyMessage handlerEvent(String requestBody, Map<String, String> map) {
         String event = map.get("Event");
         switch (event) {
             case "subscribe":
-                return eventHandler.handlerSubscribe(map);
+                return eventHandler.handlerSubscribe(XmlUtils.toBean(requestBody, SubscribeEventMessage.class));
             case "unsubscribe":
-                return eventHandler.handlerUnSubscribe(map);
+                return eventHandler.handlerUnSubscribe(XmlUtils.toBean(requestBody, UnSubscribeEventMessage.class));
             case "SCAN":
-                return eventHandler.handlerScan(map);
+                return eventHandler.handlerScan(XmlUtils.toBean(requestBody, ScanEventMessage.class));
             case "LOCATION":
-                return eventHandler.handlerLocation(map);
+                return eventHandler.handlerLocation(XmlUtils.toBean(requestBody, LocationEventMessage.class));
             case "CLICK":
-                return eventHandler.handlerClick(map);
+                return eventHandler.handlerMenu(XmlUtils.toBean(requestBody, MenuEventMessage.class));
             case "VIEW":
-                return eventHandler.handlerView(map);
+                return eventHandler.handlerMenu(XmlUtils.toBean(requestBody, MenuEventMessage.class));
+            default:
+                logger.error("unknow event " + event);
         }
         return null;
     }

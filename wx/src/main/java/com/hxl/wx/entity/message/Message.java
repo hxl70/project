@@ -1,19 +1,23 @@
-package com.hxl.wx.entity;
+package com.hxl.wx.entity.message;
+
+import com.hxl.wx.enumerate.MessageType;
 
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * Created by hxl on 2016/11/21.
+ * Created by hxl on 2016/11/22.
  */
-@XmlRootElement(name = "xml")
-public class ReturnTextMessage {
+public abstract class Message {
 
     private String toUserName;
     private String fromUserName;
     private Integer createTime;
-    private String messageType = "text";
-    private String context;
+    private MessageType messageType;
+    private String msgId;
+
+    public Message(MessageType messageType) {
+        this.messageType = messageType;
+    }
 
     @XmlElement(name = "ToUserName")
     public String getToUserName() {
@@ -43,20 +47,20 @@ public class ReturnTextMessage {
     }
 
     @XmlElement(name = "MsgType")
-    public String getMessageType() {
+    public MessageType getMessageType() {
         return messageType;
     }
 
-    public void setMessageType(String messageType) {
+    public void setMessageType(MessageType messageType) {
         this.messageType = messageType;
     }
 
-    @XmlElement(name = "Content")
-    public String getContext() {
-        return context;
+    @XmlElement(name = "MsgId")
+    public String getMsgId() {
+        return msgId;
     }
 
-    public void setContext(String context) {
-        this.context = context;
+    public void setMsgId(String msgId) {
+        this.msgId = msgId;
     }
 }

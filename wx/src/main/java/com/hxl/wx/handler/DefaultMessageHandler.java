@@ -1,10 +1,11 @@
 package com.hxl.wx.handler;
 
-import com.hxl.wx.entity.ReturnTextMessage;
-import com.hxl.wx.utils.XmlUtils;
+import com.hxl.wx.entity.message.*;
+import com.hxl.wx.entity.reply.*;
+import com.hxl.wx.factory.ReturnMessageFactory;
 import org.springframework.stereotype.Component;
 
-import java.util.Map;
+import java.util.Arrays;
 
 /**
  * Created by hxl on 2016/11/22.
@@ -12,67 +13,46 @@ import java.util.Map;
 @Component
 public class DefaultMessageHandler implements MessageHandler {
 
-    public String handlerText(Map<String, String> map) {
-        ReturnTextMessage textMessage = new ReturnTextMessage();
-        textMessage.setFromUserName(map.get("ToUserName"));
-        textMessage.setToUserName(map.get("FromUserName"));
-        textMessage.setCreateTime(Integer.valueOf(String.valueOf(System.currentTimeMillis() / 1000)));
-        textMessage.setContext("文本");
-        return XmlUtils.marshal(textMessage);
+    public ReplyMessage handlerText(TextMessage message) {
+        ReplyTextMessage replyTextMessage = ReturnMessageFactory.buildReturnMessage(new ReplyTextMessage(), message);
+        replyTextMessage.setContent("文本");
+        return replyTextMessage;
     }
 
-    public String handlerImage(Map<String, String> map) {
-        ReturnTextMessage textMessage = new ReturnTextMessage();
-        textMessage.setFromUserName(map.get("ToUserName"));
-        textMessage.setToUserName(map.get("FromUserName"));
-        textMessage.setCreateTime(Integer.valueOf(String.valueOf(System.currentTimeMillis() / 1000)));
-        textMessage.setContext("图片");
-        return XmlUtils.marshal(textMessage);
+    public ReplyMessage handlerImage(ImageMessage message) {
+        ReplyImageMessage replyImageMessage = ReturnMessageFactory.buildReturnMessage(new ReplyImageMessage(), message);
+        replyImageMessage.addMedia(message.getMediaId());
+        return replyImageMessage;
     }
 
-    public String handlerVoice(Map<String, String> map) {
-        ReturnTextMessage textMessage = new ReturnTextMessage();
-        textMessage.setFromUserName(map.get("ToUserName"));
-        textMessage.setToUserName(map.get("FromUserName"));
-        textMessage.setCreateTime(Integer.valueOf(String.valueOf(System.currentTimeMillis() / 1000)));
-        textMessage.setContext("语音");
-        return XmlUtils.marshal(textMessage);
+    public ReplyMessage handlerVoice(VoiceMessage message) {
+        ReplyVoiceMessage replyVoiceMessage = ReturnMessageFactory.buildReturnMessage(new ReplyVoiceMessage(), message);
+        replyVoiceMessage.addMedia(message.getMediaId());
+        return replyVoiceMessage;
     }
 
-    public String handlerVideo(Map<String, String> map) {
-        ReturnTextMessage textMessage = new ReturnTextMessage();
-        textMessage.setFromUserName(map.get("ToUserName"));
-        textMessage.setToUserName(map.get("FromUserName"));
-        textMessage.setCreateTime(Integer.valueOf(String.valueOf(System.currentTimeMillis() / 1000)));
-        textMessage.setContext("视频");
-        return XmlUtils.marshal(textMessage);
+    public ReplyMessage handlerVideo(VideoMessage message) {
+        ReplyVideoMessage replyVideoMessage = ReturnMessageFactory.buildReturnMessage(new ReplyVideoMessage(), message);
+        replyVideoMessage.addVideo("视屏", message.getMediaId(), message.getThumbMediaId());
+        return replyVideoMessage;
     }
 
-    public String handlerShortVideo(Map<String, String> map) {
-        ReturnTextMessage textMessage = new ReturnTextMessage();
-        textMessage.setFromUserName(map.get("ToUserName"));
-        textMessage.setToUserName(map.get("FromUserName"));
-        textMessage.setCreateTime(Integer.valueOf(String.valueOf(System.currentTimeMillis() / 1000)));
-        textMessage.setContext("小视频");
-        return XmlUtils.marshal(textMessage);
+    public ReplyMessage handlerShortVideo(ShortVideoMessage message) {
+        ReplyTextMessage replyTextMessage = ReturnMessageFactory.buildReturnMessage(new ReplyTextMessage(), message);
+        replyTextMessage.setContent("小视屏");
+        return replyTextMessage;
     }
 
-    public String handlerLocation(Map<String, String> map) {
-        ReturnTextMessage textMessage = new ReturnTextMessage();
-        textMessage.setFromUserName(map.get("ToUserName"));
-        textMessage.setToUserName(map.get("FromUserName"));
-        textMessage.setCreateTime(Integer.valueOf(String.valueOf(System.currentTimeMillis() / 1000)));
-        textMessage.setContext("地理位置");
-        return XmlUtils.marshal(textMessage);
+    public ReplyMessage handlerLocation(LocationMessage message) {
+        ReplyTextMessage replyTextMessage = ReturnMessageFactory.buildReturnMessage(new ReplyTextMessage(), message);
+        replyTextMessage.setContent("地理位置");
+        return replyTextMessage;
     }
 
-    public String handlerLink(Map<String, String> map) {
-        ReturnTextMessage textMessage = new ReturnTextMessage();
-        textMessage.setFromUserName(map.get("ToUserName"));
-        textMessage.setToUserName(map.get("FromUserName"));
-        textMessage.setCreateTime(Integer.valueOf(String.valueOf(System.currentTimeMillis() / 1000)));
-        textMessage.setContext("链接");
-        return XmlUtils.marshal(textMessage);
+    public ReplyMessage handlerLink(LinkMessage message) {
+        ReplyTextMessage replyTextMessage = ReturnMessageFactory.buildReturnMessage(new ReplyTextMessage(), message);
+        replyTextMessage.setContent("链接");
+        return replyTextMessage;
     }
 
 }

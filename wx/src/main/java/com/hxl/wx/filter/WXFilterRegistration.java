@@ -1,11 +1,10 @@
 package com.hxl.wx.filter;
 
-import com.hxl.wx.entity.WXInfo;
+import com.hxl.wx.entity.WXConfig;
 import org.springframework.boot.context.embedded.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import javax.servlet.Filter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,20 +24,11 @@ public class WXFilterRegistration {
         FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
         filterRegistrationBean.setFilter(new WXFilter());
         List<String> urlPatterns = new ArrayList<>();
-        urlPatterns.add(WXInfo.WX_URI);
+        urlPatterns.add(WXConfig.WX_URI);
         filterRegistrationBean.setUrlPatterns(urlPatterns);
         filterRegistrationBean.setName("wxIllegalFilter");
         filterRegistrationBean.setOrder(1);
         return filterRegistrationBean;
-    }
-
-    /**
-     * filter
-     * @return
-     */
-    @Bean(name = "wxIllegalFilter")
-    public Filter wxIllegalFilter() {
-        return new WXFilter();
     }
 
 }

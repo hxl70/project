@@ -1,5 +1,7 @@
 package com.hxl.wx.service;
 
+import com.hxl.wx.entity.IpList;
+
 /**
  * Created by hxl on 2016/11/18.
  * 如果公众号基于消息接收安全上的考虑，
@@ -10,6 +12,6 @@ package com.hxl.wx.service;
  */
 public interface WXServerIpService {
 
-    String getIpList();
+    IpList get();
 
 }

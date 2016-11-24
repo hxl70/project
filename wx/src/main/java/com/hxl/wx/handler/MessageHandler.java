@@ -1,6 +1,7 @@
 package com.hxl.wx.handler;
 
-import java.util.Map;
+import com.hxl.wx.entity.message.*;
+import com.hxl.wx.entity.reply.ReplyMessage;
 
 /**
  * Created by hxl on 2016/11/22.
@@ -10,7 +11,7 @@ public interface MessageHandler {
 
     /**
      * 文本消息处理
-     * @param map
+     * @param message
      * 参数           描述
      * ToUserName   开发者微信号
      * FromUserName 发送方帐号（一个OpenID）
@@ -20,11 +21,11 @@ public interface MessageHandler {
      * MsgId    消息id，64位整型
      * @return
      */
-    String handlerText(Map<String, String> map);
+    ReplyMessage handlerText(TextMessage message);
 
     /**
      * 图片消息处理
-     * @param map
+     * @param message
      * 参数	描述
      * ToUserName	开发者微信号
      * FromUserName	发送方帐号（一个OpenID）
@@ -35,11 +36,11 @@ public interface MessageHandler {
      * MsgId	消息id，64位整型
      * @return
      */
-    String handlerImage(Map<String, String> map);
+    ReplyMessage handlerImage(ImageMessage message);
 
     /**
      * 语音消息处理
-     * @param map
+     * @param message
      * 参数	描述
      * ToUserName	开发者微信号
      * FromUserName	发送方帐号（一个OpenID）
@@ -51,11 +52,11 @@ public interface MessageHandler {
      * Recongnition 开通语音识别后，Recognition为语音识别结果
      * @return
      */
-    String handlerVoice(Map<String, String> map);
+    ReplyMessage handlerVoice(VoiceMessage message);
 
     /**
      * 视频消息处理
-     * @param map
+     * @param message
      * 参数	描述
      * ToUserName	开发者微信号
      * FromUserName	发送方帐号（一个OpenID）
@@ -66,11 +67,11 @@ public interface MessageHandler {
      * MsgId	消息id，64位整型
      * @return
      */
-    String handlerVideo(Map<String, String> map);
+    ReplyMessage handlerVideo(VideoMessage message);
 
     /**
      * 小视频消息处理
-     * @param map
+     * @param message
      * 参数	描述
      * ToUserName	开发者微信号
      * FromUserName	发送方帐号（一个OpenID）
@@ -81,11 +82,11 @@ public interface MessageHandler {
      * MsgId	消息id，64位整型
      * @return
      */
-    String handlerShortVideo(Map<String, String> map);
+    ReplyMessage handlerShortVideo(ShortVideoMessage message);
 
     /**
      * 地理位置消息处理
-     * @param map
+     * @param message
      * 参数	描述
      * ToUserName	开发者微信号
      * FromUserName	发送方帐号（一个OpenID）
@@ -98,11 +99,11 @@ public interface MessageHandler {
      * MsgId	消息id，64位整型
      * @return
      */
-    String handlerLocation(Map<String, String> map);
+    ReplyMessage handlerLocation(LocationMessage message);
 
     /**
      * 链接消息处理
-     * @param map
+     * @param message
      * 参数	描述
      * ToUserName	开发者微信号
      * FromUserName	发送方帐号（一个OpenID）
@@ -114,6 +115,6 @@ public interface MessageHandler {
      * MsgId	消息id，64位整型
      * @return
      */
-    String handlerLink(Map<String, String> map);
+    ReplyMessage handlerLink(LinkMessage message);
 
 }

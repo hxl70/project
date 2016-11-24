@@ -1,10 +1,10 @@
 package com.hxl.wx.handler;
 
-import com.hxl.wx.entity.ReturnTextMessage;
-import com.hxl.wx.utils.XmlUtils;
+import com.hxl.wx.entity.message.*;
+import com.hxl.wx.entity.reply.ReplyMessage;
+import com.hxl.wx.entity.reply.ReplyTextMessage;
+import com.hxl.wx.factory.ReturnMessageFactory;
 import org.springframework.stereotype.Component;
-
-import java.util.Map;
 
 /**
  * Created by hxl on 2016/11/22.
@@ -12,58 +12,34 @@ import java.util.Map;
 @Component
 public class DefaultEventHandler implements EventHandler {
 
-    public String handlerSubscribe(Map<String, String> map) {
-        ReturnTextMessage textMessage = new ReturnTextMessage();
-        textMessage.setFromUserName(map.get("ToUserName"));
-        textMessage.setToUserName(map.get("FromUserName"));
-        textMessage.setCreateTime(Integer.valueOf(String.valueOf(System.currentTimeMillis() / 1000)));
-        textMessage.setContext("关注");
-        return XmlUtils.marshal(textMessage);
+    public ReplyMessage handlerSubscribe(SubscribeEventMessage message) {
+        ReplyTextMessage replyTextMessage = ReturnMessageFactory.buildReturnMessage(new ReplyTextMessage(), message);
+        replyTextMessage.setContent("关注");
+        return replyTextMessage;
     }
 
-    public String handlerUnSubscribe(Map<String, String> map) {
-        ReturnTextMessage textMessage = new ReturnTextMessage();
-        textMessage.setFromUserName(map.get("ToUserName"));
-        textMessage.setToUserName(map.get("FromUserName"));
-        textMessage.setCreateTime(Integer.valueOf(String.valueOf(System.currentTimeMillis() / 1000)));
-        textMessage.setContext("取消关注");
-        return XmlUtils.marshal(textMessage);
+    public ReplyMessage handlerUnSubscribe(UnSubscribeEventMessage message) {
+        ReplyTextMessage replyTextMessage = ReturnMessageFactory.buildReturnMessage(new ReplyTextMessage(), message);
+        replyTextMessage.setContent("取消关注");
+        return replyTextMessage;
     }
 
-    public String handlerScan(Map<String, String> map) {
-        ReturnTextMessage textMessage = new ReturnTextMessage();
-        textMessage.setFromUserName(map.get("ToUserName"));
-        textMessage.setToUserName(map.get("FromUserName"));
-        textMessage.setCreateTime(Integer.valueOf(String.valueOf(System.currentTimeMillis() / 1000)));
-        textMessage.setContext("已关注");
-        return XmlUtils.marshal(textMessage);
+    public ReplyMessage handlerScan(ScanEventMessage message) {
+        ReplyTextMessage replyTextMessage = ReturnMessageFactory.buildReturnMessage(new ReplyTextMessage(), message);
+        replyTextMessage.setContent("已关注");
+        return replyTextMessage;
     }
 
-    public String handlerLocation(Map<String, String> map) {
-        ReturnTextMessage textMessage = new ReturnTextMessage();
-        textMessage.setFromUserName(map.get("ToUserName"));
-        textMessage.setToUserName(map.get("FromUserName"));
-        textMessage.setCreateTime(Integer.valueOf(String.valueOf(System.currentTimeMillis() / 1000)));
-        textMessage.setContext("上报地理位置");
-        return XmlUtils.marshal(textMessage);
+    public ReplyMessage handlerLocation(LocationEventMessage message) {
+        ReplyTextMessage replyTextMessage = ReturnMessageFactory.buildReturnMessage(new ReplyTextMessage(), message);
+        replyTextMessage.setContent("上报地理位置");
+        return replyTextMessage;
     }
 
-    public String handlerClick(Map<String, String> map) {
-        ReturnTextMessage textMessage = new ReturnTextMessage();
-        textMessage.setFromUserName(map.get("ToUserName"));
-        textMessage.setToUserName(map.get("FromUserName"));
-        textMessage.setCreateTime(Integer.valueOf(String.valueOf(System.currentTimeMillis() / 1000)));
-        textMessage.setContext("自定义菜单");
-        return XmlUtils.marshal(textMessage);
+    @Override
+    public ReplyMessage handlerMenu(MenuEventMessage message) {
+        ReplyTextMessage replyTextMessage = ReturnMessageFactory.buildReturnMessage(new ReplyTextMessage(), message);
+        replyTextMessage.setContent("菜单事件");
+        return replyTextMessage;
     }
-
-    public String handlerView(Map<String, String> map) {
-        ReturnTextMessage textMessage = new ReturnTextMessage();
-        textMessage.setFromUserName(map.get("ToUserName"));
-        textMessage.setToUserName(map.get("FromUserName"));
-        textMessage.setCreateTime(Integer.valueOf(String.valueOf(System.currentTimeMillis() / 1000)));
-        textMessage.setContext("点击菜单");
-        return XmlUtils.marshal(textMessage);
-    }
-
 }

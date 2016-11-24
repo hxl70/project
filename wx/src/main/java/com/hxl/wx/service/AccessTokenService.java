@@ -1,5 +1,7 @@
 package com.hxl.wx.service;
 
+import com.hxl.wx.entity.AccessToken;
+
 /**
  * Created by hxl on 2016/11/18.
  * access_token是公众号的全局唯一票据，
@@ -15,6 +17,6 @@ package com.hxl.wx.service;
  */
 public interface AccessTokenService {
 
-    void setAccessToken();
+    AccessToken get();
 
 }

@@ -1,6 +1,7 @@
 package com.hxl.wx.handler;
 
-import java.util.Map;
+import com.hxl.wx.entity.message.*;
+import com.hxl.wx.entity.reply.ReplyMessage;
 
 /**
  * Created by hxl on 2016/11/22.
@@ -11,7 +12,7 @@ public interface EventHandler {
 
     /**
      * 关注/扫码关注处理
-     * @param map
+     * @param message
      * 参数	描述
      * ToUserName	开发者微信号
      * FromUserName	发送方帐号（一个OpenID）
@@ -22,11 +23,11 @@ public interface EventHandler {
      * Ticket	二维码的ticket，可用来换取二维码图片(扫描二维码时产生)
      * @return
      */
-    String handlerSubscribe(Map<String, String> map);
+    ReplyMessage handlerSubscribe(SubscribeEventMessage message);
 
     /**
      * 取消关注处理
-     * @param map
+     * @param message
      * 参数	描述
      * ToUserName	开发者微信号
      * FromUserName	发送方帐号（一个OpenID）
@@ -35,11 +36,11 @@ public interface EventHandler {
      * Event	事件类型，unsubscribe(取消订阅)
      * @return
      */
-    String handlerUnSubscribe(Map<String, String> map);
+    ReplyMessage handlerUnSubscribe(UnSubscribeEventMessage message);
 
     /**
      * 已关注处理
-     * @param map
+     * @param message
      * 参数	描述
      * ToUserName	开发者微信号
      * FromUserName	发送方帐号（一个OpenID）
@@ -50,11 +51,11 @@ public interface EventHandler {
      * Ticket	二维码的ticket，可用来换取二维码图片
      * @return
      */
-    String handlerScan(Map<String, String> map);
+    ReplyMessage handlerScan(ScanEventMessage message);
 
     /**
      * 上报地理位置事件处理
-     * @param map
+     * @param message
      * 参数	描述
      * ToUserName	开发者微信号
      * FromUserName	发送方帐号（一个OpenID）
@@ -66,34 +67,20 @@ public interface EventHandler {
      * Precision	地理位置精度
      * @return
      */
-    String handlerLocation(Map<String, String> map);
+    ReplyMessage handlerLocation(LocationEventMessage message);
 
     /**
      * 自定义菜单事件处理
-     * @param map
+     * @param message
      * 参数	描述
      * ToUserName	开发者微信号
      * FromUserName	发送方帐号（一个OpenID）
      * CreateTime	消息创建时间 （整型）
      * MsgType	消息类型，event
-     * Event	事件类型，CLICK
-     * EventKey	事件KEY值，与自定义菜单接口中KEY值对应
+     * Event	事件类型，CLICK, VIEW
+     * EventKey	事件KEY值，与自定义菜单接口中KEY值对应, 设置的跳转URL
      * @return
      */
-    String handlerClick(Map<String, String> map);
-
-    /**
-     * 点击菜单跳转链接时的事件处理
-     * @param map
-     * 参数	描述
-     * ToUserName	开发者微信号
-     * FromUserName	发送方帐号（一个OpenID）
-     * CreateTime	消息创建时间 （整型）
-     * MsgType	消息类型，event
-     * Event	事件类型，VIEW
-     * EventKey	事件KEY值，设置的跳转URL
-     * @return
-     */
-    String handlerView(Map<String, String> map);
+    ReplyMessage handlerMenu(MenuEventMessage message);
 
 }

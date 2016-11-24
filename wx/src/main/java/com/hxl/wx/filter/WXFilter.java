@@ -1,6 +1,6 @@
 package com.hxl.wx.filter;
 
-import com.hxl.wx.entity.WXInfo;
+import com.hxl.wx.entity.WXConfig;
 import com.hxl.wx.utils.EncryptUtils;
 import com.hxl.wx.utils.StringUtils;
 import org.slf4j.Logger;
@@ -12,6 +12,7 @@ import java.util.Arrays;
 
 /**
  * Created by hxl on 2016/11/22.
+ * 校验微信安全
  */
 public class WXFilter implements Filter {
 
@@ -44,7 +45,7 @@ public class WXFilter implements Filter {
             logger.error("timestamp, nonce, signature can not be empty");
             throw new ServletException("timestamp, nonce, signature can not be empty");
         }
-        String sort = sort(WXInfo.TOKEN, timestamp, nonce);
+        String sort = sort(WXConfig.TOKEN, timestamp, nonce);
         if (EncryptUtils.sha1(sort).equals(signature)) {
             logger.info("check success");
         } else {

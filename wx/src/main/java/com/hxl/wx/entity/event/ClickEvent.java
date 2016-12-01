@@ -1,4 +1,6 @@
-package com.hxl.wx.entity.message;
+package com.hxl.wx.entity.event;
+
+import com.hxl.wx.entity.message.EventMessage;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -7,10 +9,10 @@ import javax.xml.bind.annotation.XmlRootElement;
  * Created by hxl on 2016/11/23.
  */
 @XmlRootElement(name = "xml")
-public class ScanEventMessage extends EventMessage {
+public class ClickEvent extends EventMessage {
 
+    //事件KEY值，与自定义菜单接口中KEY值对应
     private String eventKey;
-    private String ticket;
 
     @XmlElement(name = "EventKey")
     public String getEventKey() {
@@ -19,14 +21,5 @@ public class ScanEventMessage extends EventMessage {
 
     public void setEventKey(String eventKey) {
         this.eventKey = eventKey;
-    }
-
-    @XmlElement(name = "Ticket")
-    public String getTicket() {
-        return ticket;
-    }
-
-    public void setTicket(String ticket) {
-        this.ticket = ticket;
     }
 }

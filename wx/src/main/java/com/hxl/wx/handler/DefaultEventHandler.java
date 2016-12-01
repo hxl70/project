@@ -1,6 +1,6 @@
 package com.hxl.wx.handler;
 
-import com.hxl.wx.entity.message.*;
+import com.hxl.wx.entity.event.*;
 import com.hxl.wx.entity.reply.ReplyMessage;
 import com.hxl.wx.entity.reply.ReplyTextMessage;
 import com.hxl.wx.factory.ReturnMessageFactory;
@@ -12,34 +12,84 @@ import org.springframework.stereotype.Component;
 @Component
 public class DefaultEventHandler implements EventHandler {
 
-    public ReplyMessage handlerSubscribe(SubscribeEventMessage message) {
-        ReplyTextMessage replyTextMessage = ReturnMessageFactory.buildReturnMessage(new ReplyTextMessage(), message);
+    public ReplyMessage handlerSubscribe(SubscribeEvent event) {
+        ReplyTextMessage replyTextMessage = ReturnMessageFactory.buildReturnMessage(new ReplyTextMessage(), event);
         replyTextMessage.setContent("关注");
         return replyTextMessage;
     }
 
-    public ReplyMessage handlerUnSubscribe(UnSubscribeEventMessage message) {
-        ReplyTextMessage replyTextMessage = ReturnMessageFactory.buildReturnMessage(new ReplyTextMessage(), message);
+    public ReplyMessage handlerUnSubscribe(UnSubscribeEvent event) {
+        ReplyTextMessage replyTextMessage = ReturnMessageFactory.buildReturnMessage(new ReplyTextMessage(), event);
         replyTextMessage.setContent("取消关注");
         return replyTextMessage;
     }
 
-    public ReplyMessage handlerScan(ScanEventMessage message) {
-        ReplyTextMessage replyTextMessage = ReturnMessageFactory.buildReturnMessage(new ReplyTextMessage(), message);
+    public ReplyMessage handlerScan(ScanEvent event) {
+        ReplyTextMessage replyTextMessage = ReturnMessageFactory.buildReturnMessage(new ReplyTextMessage(), event);
         replyTextMessage.setContent("已关注");
         return replyTextMessage;
     }
 
-    public ReplyMessage handlerLocation(LocationEventMessage message) {
-        ReplyTextMessage replyTextMessage = ReturnMessageFactory.buildReturnMessage(new ReplyTextMessage(), message);
+    public ReplyMessage handlerLocation(LocationEvent event) {
+        ReplyTextMessage replyTextMessage = ReturnMessageFactory.buildReturnMessage(new ReplyTextMessage(), event);
         replyTextMessage.setContent("上报地理位置");
         return replyTextMessage;
     }
 
     @Override
-    public ReplyMessage handlerMenu(MenuEventMessage message) {
-        ReplyTextMessage replyTextMessage = ReturnMessageFactory.buildReturnMessage(new ReplyTextMessage(), message);
-        replyTextMessage.setContent("菜单事件");
+    public ReplyMessage handlerClick(ClickEvent event) {
+        ReplyTextMessage replyTextMessage = ReturnMessageFactory.buildReturnMessage(new ReplyTextMessage(), event);
+        replyTextMessage.setContent("点击事件");
         return replyTextMessage;
     }
+
+    @Override
+    public ReplyMessage handlerView(ViewEvent event) {
+        ReplyTextMessage replyTextMessage = ReturnMessageFactory.buildReturnMessage(new ReplyTextMessage(), event);
+        replyTextMessage.setContent("查看事件");
+        return replyTextMessage;
+    }
+
+    @Override
+    public ReplyMessage handlerScanCodePush(ScanCodePushEvent event) {
+        ReplyTextMessage replyTextMessage = ReturnMessageFactory.buildReturnMessage(new ReplyTextMessage(), event);
+        replyTextMessage.setContent("扫码事件");
+        return replyTextMessage;
+    }
+
+    @Override
+    public ReplyMessage handlerScanCodeWaitMsg(ScanCodeWaitMsgEvent event) {
+        ReplyTextMessage replyTextMessage = ReturnMessageFactory.buildReturnMessage(new ReplyTextMessage(), event);
+        replyTextMessage.setContent("扫码且等待消息事件");
+        return replyTextMessage;
+    }
+
+    @Override
+    public ReplyMessage handlerPicSysPhoto(PicSysPhotoEvent event) {
+        ReplyTextMessage replyTextMessage = ReturnMessageFactory.buildReturnMessage(new ReplyTextMessage(), event);
+        replyTextMessage.setContent("系统拍照事件");
+        return replyTextMessage;
+    }
+
+    @Override
+    public ReplyMessage handlerPicPhotoOrAlbum(PicPhotoOrAlbumEvent event) {
+        ReplyTextMessage replyTextMessage = ReturnMessageFactory.buildReturnMessage(new ReplyTextMessage(), event);
+        replyTextMessage.setContent("拍照事件");
+        return replyTextMessage;
+    }
+
+    @Override
+    public ReplyMessage handlerPicWeiXin(PicWeiXinEvent event) {
+        ReplyTextMessage replyTextMessage = ReturnMessageFactory.buildReturnMessage(new ReplyTextMessage(), event);
+        replyTextMessage.setContent("微信拍照事件");
+        return replyTextMessage;
+    }
+
+    @Override
+    public ReplyMessage handlerLocationSelect(LocationSelectEvent event) {
+        ReplyTextMessage replyTextMessage = ReturnMessageFactory.buildReturnMessage(new ReplyTextMessage(), event);
+        replyTextMessage.setContent("选择地理位置事件");
+        return replyTextMessage;
+    }
+
 }

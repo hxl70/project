@@ -42,7 +42,6 @@ public class JsonUtils {
         return null;
     }
 
-
     public static void main(String[] args) {
         Menu menu = new Menu();
         Button button = new Button();
@@ -50,7 +49,10 @@ public class JsonUtils {
         button.setType(ButtonType.scancode_waitmsg);
         button.setKey("rselfmenu_0_0");
         menu.getButtons().add(button);
-        System.out.println(JsonUtils.toString(menu));
+        String x = JsonUtils.toString(menu);
+
+        HashMap hashMap = JsonUtils.toBean(x, HashMap.class);
+        System.out.println(hashMap.get("button"));
     }
 
 }

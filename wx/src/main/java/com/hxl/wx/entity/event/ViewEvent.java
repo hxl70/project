@@ -1,4 +1,6 @@
-package com.hxl.wx.entity.message;
+package com.hxl.wx.entity.event;
+
+import com.hxl.wx.entity.message.EventMessage;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -7,7 +9,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * Created by hxl on 2016/11/23.
  */
 @XmlRootElement(name = "xml")
-public class MenuEventMessage extends EventMessage {
+public class ViewEvent extends EventMessage {
 
     //事件KEY值，与自定义菜单接口中KEY值对应
     private String eventKey;

@@ -16,7 +16,7 @@ public class ReturnMessageFactory {
     private static void setProperties(Message from, ReplyMessage to) {
         to.setFromUserName(from.getToUserName());
         to.setToUserName(from.getFromUserName());
-        to.setCreateTime(Integer.valueOf(String.valueOf(System.currentTimeMillis() / 1000)));
+        to.setCreateTime(System.currentTimeMillis() / 1000);
     }
 
 }

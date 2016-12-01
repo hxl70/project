@@ -1,6 +1,7 @@
 package com.hxl.wx.controller;
 
 import com.hxl.wx.entity.*;
+import com.hxl.wx.entity.event.*;
 import com.hxl.wx.entity.message.*;
 import com.hxl.wx.entity.reply.ReplyMessage;
 import com.hxl.wx.handler.EventHandler;
@@ -89,17 +90,29 @@ public class MessageController {
     private ReplyMessage handlerEvent(String requestBody, String event) {
         switch (event) {
             case "subscribe":
-                return eventHandler.handlerSubscribe(XmlUtils.toBean(requestBody, SubscribeEventMessage.class));
+                return eventHandler.handlerSubscribe(XmlUtils.toBean(requestBody, SubscribeEvent.class));
             case "unsubscribe":
-                return eventHandler.handlerUnSubscribe(XmlUtils.toBean(requestBody, UnSubscribeEventMessage.class));
+                return eventHandler.handlerUnSubscribe(XmlUtils.toBean(requestBody, UnSubscribeEvent.class));
             case "SCAN":
-                return eventHandler.handlerScan(XmlUtils.toBean(requestBody, ScanEventMessage.class));
+                return eventHandler.handlerScan(XmlUtils.toBean(requestBody, ScanEvent.class));
             case "LOCATION":
-                return eventHandler.handlerLocation(XmlUtils.toBean(requestBody, LocationEventMessage.class));
+                return eventHandler.handlerLocation(XmlUtils.toBean(requestBody, LocationEvent.class));
             case "CLICK":
-                return eventHandler.handlerMenu(XmlUtils.toBean(requestBody, MenuEventMessage.class));
+                return eventHandler.handlerClick(XmlUtils.toBean(requestBody, ClickEvent.class));
             case "VIEW":
-                return eventHandler.handlerMenu(XmlUtils.toBean(requestBody, MenuEventMessage.class));
+                return eventHandler.handlerView(XmlUtils.toBean(requestBody, ViewEvent.class));
+            case "scancode_push":
+                return eventHandler.handlerScanCodePush(XmlUtils.toBean(requestBody, ScanCodePushEvent.class));
+            case "scancode_waitmsg":
+                return eventHandler.handlerScanCodeWaitMsg(XmlUtils.toBean(requestBody, ScanCodeWaitMsgEvent.class));
+            case "pic_sysphoto":
+                return eventHandler.handlerPicSysPhoto(XmlUtils.toBean(requestBody, PicSysPhotoEvent.class));
+            case "pic_photo_or_album":
+                return eventHandler.handlerPicPhotoOrAlbum(XmlUtils.toBean(requestBody, PicPhotoOrAlbumEvent.class));
+            case "pic_weixin":
+                return eventHandler.handlerPicWeiXin(XmlUtils.toBean(requestBody, PicWeiXinEvent.class));
+            case "location_select":
+                return eventHandler.handlerLocationSelect(XmlUtils.toBean(requestBody, LocationSelectEvent.class));
             default:
                 logger.error("unknown event {}", event);
         }

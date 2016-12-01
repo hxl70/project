@@ -11,7 +11,7 @@ public abstract class Message {
 
     private String toUserName;
     private String fromUserName;
-    private Integer createTime;
+    private Long createTime;
     private MessageType messageType;
     private String msgId;
 
@@ -38,11 +38,11 @@ public abstract class Message {
     }
 
     @XmlElement(name = "CreateTime")
-    public Integer getCreateTime() {
+    public Long getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Integer createTime) {
+    public void setCreateTime(Long createTime) {
         this.createTime = createTime;
     }
 

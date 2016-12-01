@@ -11,7 +11,7 @@ public class ReplyMessage {
 
     private String toUserName;
     private String fromUserName;
-    private Integer createTime;
+    private Long createTime;
     private ReplyMessageType messageType;
 
     public ReplyMessage(ReplyMessageType messageType) {
@@ -37,11 +37,11 @@ public class ReplyMessage {
     }
 
     @XmlElement(name = "CreateTime")
-    public Integer getCreateTime() {
+    public Long getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Integer createTime) {
+    public void setCreateTime(Long createTime) {
         this.createTime = createTime;
     }
 

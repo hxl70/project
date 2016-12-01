@@ -36,7 +36,11 @@ public class HttpsServiceImpl implements HttpsService {
             String result = sb.toString();
 
             logger.info("get success: {}", result);
-            ResultHandler.handler(result);
+            try {
+                ResultHandler.handler(result);
+            } catch (Exception e) {
+                logger.error("access error: {}", e);
+            }
 
             return result;
 
@@ -69,7 +73,11 @@ public class HttpsServiceImpl implements HttpsService {
             }
             String result = sb.toString();
             logger.info("post success: {}", result);
-            ResultHandler.handler(result);
+            try {
+                ResultHandler.handler(result);
+            } catch (Exception e) {
+                logger.error("access error: {}", e);
+            }
 
             return result;
 

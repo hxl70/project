@@ -1,4 +1,6 @@
-package com.hxl.wx.entity.message;
+package com.hxl.wx.entity.event;
+
+import com.hxl.wx.entity.message.EventMessage;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -7,7 +9,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * Created by hxl on 2016/11/23.
  */
 @XmlRootElement(name = "xml")
-public class LocationEventMessage extends EventMessage {
+public class LocationEvent extends EventMessage {
 
     //地理位置纬度
     private String latitude;

@@ -1,13 +1,11 @@
 package com.hxl.utils;
 
-import com.hxl.generator.properties.DataTypes;
-import com.hxl.generator.properties.GeneratorConfig;
+import com.hxl.generator.configs.Configs;
+import com.hxl.generator.configs.DataTypes;
+import com.hxl.generator.configs.GeneratorConfig;
 import com.hxl.parser.entity.Table;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
@@ -24,11 +22,11 @@ public class GeneratorUtils {
     private GeneratorConfig generatorConfig;
     private Table table;
 
-    public GeneratorUtils(DataTypes dataTypes, GeneratorConfig generatorConfig, Table table) {
-        this.dataTypes = dataTypes;
-        this.generatorConfig = generatorConfig;
+    public GeneratorUtils(Configs configs, Table table) {
+        this.dataTypes = configs.getDataTypes();
+        this.generatorConfig = configs.getConfig();
         this.table = table;
-        table.generate(this);
+        table.generate(this, configs.getTablePre());
     }
 
     /**
@@ -168,8 +166,7 @@ public class GeneratorUtils {
             return generatorConfig.getProjectDirectory() + generatorConfig.getTestDirectory() + fileConfig.getPath() + "/" + getFileName(fileConfig, name) + fileConfig.getExt();
         }
         if (fileConfig.getType().equalsIgnoreCase("view")) {
-            String fieldName = table.getFieldName();
-            return generatorConfig.getProjectDirectory() + generatorConfig.getViewDirectory() + fileConfig.getPath() + fieldName + "/" + getFileName(fileConfig, fieldName);
+            return generatorConfig.getProjectDirectory() + generatorConfig.getViewDirectory() + table.getFieldName() + "/" + fileConfig.getPath() + fileConfig.getExt();
         }
         return name;
     }

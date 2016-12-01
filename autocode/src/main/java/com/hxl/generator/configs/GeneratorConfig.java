@@ -1,4 +1,4 @@
-package com.hxl.generator.properties;
+package com.hxl.generator.configs;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by hxl on 2016/10/13.
  */
-@ConfigurationProperties(prefix = "generator.config", locations = "classpath:/generator.yml")
+@ConfigurationProperties(prefix = "generator", locations = "${config.generator}")
 public class GeneratorConfig {
 
     //项目路径

@@ -45,7 +45,8 @@ public class MessageController {
         ReplyMessage result = null;
         switch (type) {
             case "event":
-                result = handlerEvent(requestBody, map);
+                String event = map.get("Event");
+                result = handlerEvent(requestBody, event);
                 break;
             case "text":
                 result = messageHandler.handlerText(XmlUtils.toBean(requestBody, TextMessage.class));
@@ -82,11 +83,10 @@ public class MessageController {
 
     /**
      * 事件处理
-     * @param map
+     * @param event 事件类型
      * @return
      */
-    private ReplyMessage handlerEvent(String requestBody, Map<String, String> map) {
-        String event = map.get("Event");
+    private ReplyMessage handlerEvent(String requestBody, String event) {
         switch (event) {
             case "subscribe":
                 return eventHandler.handlerSubscribe(XmlUtils.toBean(requestBody, SubscribeEventMessage.class));
@@ -101,10 +101,9 @@ public class MessageController {
             case "VIEW":
                 return eventHandler.handlerMenu(XmlUtils.toBean(requestBody, MenuEventMessage.class));
             default:
-                logger.error("unknow event " + event);
+                logger.error("unknown event {}", event);
         }
         return null;
     }
-
 
 }

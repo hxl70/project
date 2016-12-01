@@ -1,4 +1,4 @@
-package com.hxl.generator.properties;
+package com.hxl.generator.configs;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by hxl on 2016/9/5.
  */
-@ConfigurationProperties(locations = "classpath:/datatype.yml", prefix = "dataType")
+@ConfigurationProperties(locations = "${config.dataTypes}")
 public class DataTypes {
 
     private Logger logger = LoggerFactory.getLogger(DataTypes.class);

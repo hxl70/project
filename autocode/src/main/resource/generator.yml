@@ -1,50 +1,49 @@
 generator:
-  config:
-    projectDirectory: "F:/idea_workspace/IdeaProjects/project/mvc/"
-    sourceDirectory: "src/main/java/"
-    testDirectory: "src/main/test/"
-    viewDirectory: "src/main/webapp/WEB-INF/tiles/"
-    configs:
-      - name: entity
-        type: source
-        path: com/hxl/test/entity
-        template: templates/entity.vm
-        ext: .java
-      - name: dao
-        type: source
-        path: com/hxl/test/dao
-        template: templates/dao.vm
-        ext: .java
-      - name: service
-        type: source
-        path: com/hxl/test/service
-        template: templates/service.vm
-        ext: .java
-      - name: query
-        type: source
-        path: com/hxl/test/query
-        template: templates/query.vm
-        ext: .java
-      - name: serviceImpl
-        type: source
-        path: com/hxl/test/service/impl
-        template: templates/serviceImpl.vm
-        ext: .java
-      - name: controller
-        type: source
-        path: com/hxl/test/controller
-        template: templates/controller.vm
-        ext: .java
-      - name: list
-        type: view
-        path: view
-        template: templates/list.vm
-        ext: .html
-      - name: edit
-        type: view
-        path: view
-        template: templates/edit.vm
-        ext: .html
+  projectDirectory: "F:/idea_workspace/IdeaProjects/project/mvc/"
+  sourceDirectory: "src/main/java/"
+  testDirectory: "src/main/test/"
+  viewDirectory: "src/main/webapp/WEB-INF/tiles/"
+  configs:
+    - name: entity
+      type: source
+      path: com/hxl/test/entity
+      template: templates/entity.vm
+      ext: .java
+    - name: dao
+      type: source
+      path: com/hxl/test/dao
+      template: templates/dao.vm
+      ext: .java
+    - name: service
+      type: source
+      path: com/hxl/test/service
+      template: templates/service.vm
+      ext: .java
+    - name: query
+      type: source
+      path: com/hxl/test/query
+      template: templates/query.vm
+      ext: .java
+    - name: serviceImpl
+      type: source
+      path: com/hxl/test/service/impl
+      template: templates/serviceImpl.vm
+      ext: .java
+    - name: controller
+      type: source
+      path: com/hxl/test/controller
+      template: templates/controller.vm
+      ext: .java
+    - name: list
+      type: view
+      path: list
+      template: templates/list.vm
+      ext: .html
+    - name: edit
+      type: view
+      path: edit
+      template: templates/edit.vm
+      ext: .html
 
 
 

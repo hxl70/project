@@ -1,17 +1,16 @@
 #MySQL
-dataType:
-  types:
-    - javaType: String
-      sqlType: varchar
-    - javaType: Integer
-      sqlType: int
-    - javaType: Date
-      sqlType: datetime
-    - javaType: Boolean
-      sqlType: bit
-    - javaType: String
-      sqlType: text
-    - javaType: String
-      sqlType: mediumtext
-    - javaType: Float
-      sqlType: float
+types:
+  - javaType: String
+    sqlType: varchar
+  - javaType: Integer
+    sqlType: int
+  - javaType: Date
+    sqlType: datetime
+  - javaType: Boolean
+    sqlType: bit
+  - javaType: String
+    sqlType: text
+  - javaType: String
+    sqlType: mediumtext
+  - javaType: Float
+    sqlType: float

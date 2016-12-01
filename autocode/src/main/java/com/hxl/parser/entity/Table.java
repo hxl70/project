@@ -1,6 +1,7 @@
 package com.hxl.parser.entity;
 
 import com.hxl.utils.GeneratorUtils;
+import com.hxl.utils.StringUtils;
 
 import java.util.List;
 
@@ -10,21 +11,38 @@ import java.util.List;
  */
 public class Table {
 
+    // 名称
     private String name;
+    //代码
     private String code;
+    //主键字段
     private Column pkColumn;
+    //字段
     private List<Column> columns;
 
+    //新增标识
     private boolean created = true;
+    //修改标识
     private boolean modified = true;
+    //删除标识
     private boolean deleted = true;
+    //查询标识
     private boolean searched = true;
+    //类名
     private String className;
+    //类字段名
     private String fieldName;
 
-    public void generate(GeneratorUtils utils) {
-        className = utils.getClassName(this.getCode());
-        fieldName = utils.getFieldName(this.getCode());
+    public void generate(GeneratorUtils utils, String tablePre) {
+        String c = this.getCode();
+        //去除表前缀
+        if (StringUtils.isNotEmpty(tablePre)) {
+            if (c.substring(0, tablePre.length()).equalsIgnoreCase(tablePre)) {
+                c = c.substring(tablePre.length());
+            }
+        }
+        className = utils.getClassName(c);
+        fieldName = utils.getFieldName(c);
         columns.parallelStream().forEach(column -> column.generate(utils));
     }
 

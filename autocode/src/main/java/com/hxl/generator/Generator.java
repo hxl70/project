@@ -1,7 +1,8 @@
 package com.hxl.generator;
 
-import com.hxl.generator.properties.DataTypes;
-import com.hxl.generator.properties.GeneratorConfig;
+import com.hxl.generator.configs.Configs;
+import com.hxl.generator.configs.DataTypes;
+import com.hxl.generator.configs.GeneratorConfig;
 import com.hxl.parser.entity.Table;
 import com.hxl.utils.FileUtils;
 import com.hxl.utils.GeneratorUtils;
@@ -11,6 +12,7 @@ import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.runtime.RuntimeConstants;
 import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -19,19 +21,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
-
 /**
  * Created by hxl on 2016/9/5.
  */
 @Component
-@EnableConfigurationProperties(value = {GeneratorConfig.class, DataTypes.class})
 public class Generator {
 
     @Autowired
-    private GeneratorConfig generatorConfig;
-    @Autowired
-    private DataTypes dataTypes;
-
+    private Configs configs;
     private VelocityEngine velocityEngine;
 
     public Generator() {
@@ -48,11 +45,11 @@ public class Generator {
     }
 
     public void generator(Table table) {
-        generatorConfig.getConfigs().parallelStream().forEach(c -> {
+        configs.getConfig().getConfigs().parallelStream().forEach(c -> {
             try {
                 Template template = velocityEngine.getTemplate(c.getTemplate());
                 VelocityContext velocityContext = new VelocityContext();
-                GeneratorUtils utils = new GeneratorUtils(dataTypes, generatorConfig, table);
+                GeneratorUtils utils = new GeneratorUtils(configs, table);
                 velocityContext.put("table", table);
                 velocityContext.put("utils", utils);
                 String file = utils.getFullPath(c);

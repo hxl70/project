@@ -9,12 +9,19 @@ import com.hxl.utils.GeneratorUtils;
  */
 public class Column {
 
+    //名称
     private String name;
+    //代码
     private String code;
+    //类型
     private String type;
+    //长度
     private Integer length;
+    //主键标识
     private boolean pkFlag;
+    //默认值
     private String defaultValue;
+    //表
     private Table table;
 
     private boolean created = true; //是否创建

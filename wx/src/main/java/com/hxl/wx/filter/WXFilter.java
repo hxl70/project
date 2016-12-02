@@ -5,6 +5,8 @@ import com.hxl.wx.utils.EncryptUtils;
 import com.hxl.wx.utils.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 import javax.servlet.*;
 import java.io.IOException;
@@ -14,9 +16,12 @@ import java.util.Arrays;
  * Created by hxl on 2016/11/22.
  * 校验微信安全
  */
+@EnableConfigurationProperties(WXConfig.class)
 public class WXFilter implements Filter {
 
     private Logger logger = LoggerFactory.getLogger(WXFilter.class);
+    @Autowired
+    private WXConfig wxConfig;
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -45,7 +50,7 @@ public class WXFilter implements Filter {
             logger.error("timestamp, nonce, signature can not be empty");
             throw new ServletException("timestamp, nonce, signature can not be empty");
         }
-        String sort = sort(WXConfig.TOKEN, timestamp, nonce);
+        String sort = sort(wxConfig.getToken(), timestamp, nonce);
         if (EncryptUtils.sha1(sort).equals(signature)) {
             logger.info("check success");
         } else {

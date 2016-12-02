@@ -1,8 +1,6 @@
 package com.hxl.generator;
 
 import com.hxl.generator.configs.Configs;
-import com.hxl.generator.configs.DataTypes;
-import com.hxl.generator.configs.GeneratorConfig;
 import com.hxl.parser.entity.Table;
 import com.hxl.utils.FileUtils;
 import com.hxl.utils.GeneratorUtils;
@@ -12,8 +10,6 @@ import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.runtime.RuntimeConstants;
 import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 import java.io.BufferedWriter;

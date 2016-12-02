@@ -1,2 +1,4 @@
 server:
   port: 8888
+wx:
+  configs: classpath:/wx.yml

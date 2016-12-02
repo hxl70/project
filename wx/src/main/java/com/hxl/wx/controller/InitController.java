@@ -1,6 +1,6 @@
 package com.hxl.wx.controller;
 
-import com.hxl.wx.entity.WXConfig;
+import com.hxl.wx.entity.WXUri;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -24,7 +24,7 @@ public class InitController {
      * @return echostr
      */
     @ResponseBody
-    @RequestMapping(value = WXConfig.WX_URI, method = RequestMethod.GET)
+    @RequestMapping(value = WXUri.URI, method = RequestMethod.GET)
     public String init(@RequestParam("echostr") String echostr) {
         logger.info("微信接入成功");
         return echostr;

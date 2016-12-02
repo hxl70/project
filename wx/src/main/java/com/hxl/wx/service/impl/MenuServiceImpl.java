@@ -2,6 +2,7 @@ package com.hxl.wx.service.impl;
 
 import com.hxl.wx.entity.Menu;
 import com.hxl.wx.entity.MenuResult;
+import com.hxl.wx.entity.WXAccessToken;
 import com.hxl.wx.entity.WXConfig;
 import com.hxl.wx.service.MenuService;
 import com.hxl.wx.service.HttpsService;
@@ -31,13 +32,13 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public void set(Menu menu) {
         String menuJson = JsonUtils.toString(menu);
-        String result = httpsService.post(String.format(createUrl, WXConfig.ACCESS_TOKEN), menuJson);
+        String result = httpsService.post(String.format(createUrl, WXAccessToken.ACCESS_TOKEN), menuJson);
         logger.info("create menu {}: {}", menuJson, result);
     }
 
     @Override
     public Menu get() {
-        String result = httpsService.get(String.format(getUrl, WXConfig.ACCESS_TOKEN));
+        String result = httpsService.get(String.format(getUrl, WXAccessToken.ACCESS_TOKEN));
         logger.info("get menu: {}", result);
         MenuResult menuResult = JsonUtils.toBean(result, MenuResult.class);
         return menuResult == null ? null : menuResult.getMenu();
@@ -45,7 +46,7 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public void delete() {
-        String result = httpsService.get(String.format(deleteUrl, WXConfig.ACCESS_TOKEN));
+        String result = httpsService.get(String.format(deleteUrl, WXAccessToken.ACCESS_TOKEN));
         logger.info("delete menu : {}", result);
     }
 }

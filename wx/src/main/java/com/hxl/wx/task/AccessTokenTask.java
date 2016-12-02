@@ -1,7 +1,7 @@
 package com.hxl.wx.task;
 
 import com.hxl.wx.entity.AccessToken;
-import com.hxl.wx.entity.WXConfig;
+import com.hxl.wx.entity.WXAccessToken;
 import com.hxl.wx.service.AccessTokenService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,8 +31,8 @@ public class AccessTokenTask extends Thread implements InitializingBean {
         while (true) {
             try {
                 AccessToken accessToken = accessTokenService.get();
-                WXConfig.ACCESS_TOKEN = accessToken.getAccessToken();
-                logger.info("set AccessToken: {}", WXConfig.ACCESS_TOKEN);
+                WXAccessToken.ACCESS_TOKEN = accessToken.getAccessToken();
+                logger.info("set AccessToken: {}", WXAccessToken.ACCESS_TOKEN);
                 Thread.sleep(ms);
             } catch (Exception e) {
                 logger.error("set AccessToken Error: {}", e);

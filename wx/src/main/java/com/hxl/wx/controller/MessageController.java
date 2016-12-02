@@ -38,7 +38,7 @@ public class MessageController {
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = WXConfig.WX_URI, method = RequestMethod.POST)
+    @RequestMapping(value = WXUri.URI, method = RequestMethod.POST)
     public String message(@RequestBody String requestBody) {
         Map<String, String> map = XmlUtils.parseRequestBody(requestBody);
         logger.info(requestBody);

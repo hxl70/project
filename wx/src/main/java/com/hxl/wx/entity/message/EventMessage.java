@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlElement;
  * Created by hxl on 2016/11/23.
  * subscribe(订阅)、unsubscribe(取消订阅)
  */
-public class EventMessage extends Message {
+public abstract class EventMessage extends Message {
 
     public EventMessage() {
         super(MessageType.event);

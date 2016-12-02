@@ -1,6 +1,7 @@
 package com.hxl.wx.filter;
 
 import com.hxl.wx.entity.WXConfig;
+import com.hxl.wx.entity.WXUri;
 import org.springframework.boot.context.embedded.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,7 +25,7 @@ public class WXFilterRegistration {
         FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
         filterRegistrationBean.setFilter(new WXFilter());
         List<String> urlPatterns = new ArrayList<>();
-        urlPatterns.add(WXConfig.WX_URI);
+        urlPatterns.add(WXUri.URI);
         filterRegistrationBean.setUrlPatterns(urlPatterns);
         filterRegistrationBean.setName("wxIllegalFilter");
         filterRegistrationBean.setOrder(1);

@@ -1,5 +1,7 @@
 package com.hxl.wx.entity;
 
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
 import java.io.IOException;
 import java.util.Properties;
 
@@ -7,24 +9,34 @@ import java.util.Properties;
  * Created by hxl on 2016/11/18.
  * 微信配置信息
  */
+@ConfigurationProperties(locations = "${wx.configs}", prefix = "wx")
 public class WXConfig {
 
-    public static final String APP_ID;
-    public static final String APP_SECRET;
-    public static String ACCESS_TOKEN;
-    public static final String TOKEN;
-    public static final String WX_URI = "/wx";
+    private String appId;
+    private String appSecret;
+    private String token;
 
-    static {
-        Properties properties = new Properties();
-        try {
-            properties.load(WXConfig.class.getClassLoader().getResourceAsStream("wx.properties"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        APP_ID = properties.getProperty("wx.appId");
-        APP_SECRET = properties.getProperty("wx.appSecret");
-        TOKEN = properties.getProperty("wx.token");
+    public String getAppId() {
+        return appId;
     }
 
+    public void setAppId(String appId) {
+        this.appId = appId;
+    }
+
+    public String getAppSecret() {
+        return appSecret;
+    }
+
+    public void setAppSecret(String appSecret) {
+        this.appSecret = appSecret;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 }

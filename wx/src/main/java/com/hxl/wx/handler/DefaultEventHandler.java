@@ -92,4 +92,34 @@ public class DefaultEventHandler implements EventHandler {
         return replyTextMessage;
     }
 
+    @Override
+    public ReplyMessage handlerQualificationVerifySuccess(QualificationVerifySuccessEvent event) {
+        return null;
+    }
+
+    @Override
+    public ReplyMessage handlerQualificationVerifyFail(QualificationVerifyFailEvent event) {
+        return null;
+    }
+
+    @Override
+    public ReplyMessage handlerNamingVerifySuccess(NamingVerifySuccessEvent event) {
+        return null;
+    }
+
+    @Override
+    public ReplyMessage handlerNamingVerifyFail(NamingVerifyFailEvent event) {
+        return null;
+    }
+
+    @Override
+    public ReplyMessage handlerAnnualRenew(AnnualRenewEvent event) {
+        return null;
+    }
+
+    @Override
+    public ReplyMessage handlerVerifyExpired(VerifyExpiredEvent event) {
+        return null;
+    }
+
 }

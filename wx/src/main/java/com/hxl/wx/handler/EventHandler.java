@@ -205,4 +205,90 @@ public interface EventHandler {
      */
     ReplyMessage handlerLocationSelect(LocationSelectEvent event);
 
+    /**
+     * 资质认证成功
+     * @param event
+     * 参数	描述
+     * ToUserName	开发者微信号
+     * FromUserName	发送方帐号（一个OpenID，此时发送方是系统帐号）
+     * CreateTime	消息创建时间 （整型），时间戳
+     * MsgType	消息类型，event
+     * Event	事件类型 qualification_verify_success
+     * ExpiredTime	有效期 (整形)，指的是时间戳，将于该时间戳认证过期
+     * @return
+     */
+    ReplyMessage handlerQualificationVerifySuccess(QualificationVerifySuccessEvent event);
+
+    /**
+     * 资质认证失败
+     * @param event
+     * 参数	描述
+     * ToUserName	开发者微信号
+     * FromUserName	发送方帐号（一个OpenID，此时发送方是系统帐号）
+     * CreateTime	消息创建时间 （整型），时间戳
+     * MsgType	消息类型，event
+     * Event	事件类型 qualification_verify_fail
+     * FailTime	失败发生时间 (整形)，时间戳
+     * FailReason	认证失败的原因
+     * @return
+     */
+    ReplyMessage handlerQualificationVerifyFail(QualificationVerifyFailEvent event);
+
+    /**
+     * 名称认证成功
+     * @param event
+     * 参数	描述
+     * ToUserName	开发者微信号
+     * FromUserName	发送方帐号（一个OpenID，此时发送方是系统帐号）
+     * CreateTime	消息创建时间 （整型），时间戳
+     * MsgType	消息类型，event
+     * Event	事件类型 naming_verify_success
+     * ExpiredTime	有效期 (整形)，指的是时间戳，将于该时间戳认证过期
+     * @return
+     */
+    ReplyMessage handlerNamingVerifySuccess(NamingVerifySuccessEvent event);
+
+    /**
+     * 名称认证失败
+     * @param event
+     * 参数	描述
+     * ToUserName	开发者微信号
+     * FromUserName	发送方帐号（一个OpenID，此时发送方是系统帐号）
+     * CreateTime	消息创建时间 （整型），时间戳
+     * MsgType	消息类型，event
+     * Event	事件类型 naming_verify_fail
+     * FailTime	失败发生时间 (整形)，时间戳
+     * FailReason	认证失败的原因
+     * @return
+     */
+    ReplyMessage handlerNamingVerifyFail(NamingVerifyFailEvent event);
+
+    /**
+     * 年审通知
+     * @param event
+     * 参数	描述
+     * ToUserName	开发者微信号
+     * FromUserName	发送方帐号（一个OpenID，此时发送方是系统帐号）
+     * CreateTime	消息创建时间 （整型），时间戳
+     * MsgType	消息类型，event
+     * Event	事件类型 annual_renew
+     * ExpiredTime	有效期 (整形)，指的是时间戳，将于该时间戳认证过期
+     * @return
+     */
+    ReplyMessage handlerAnnualRenew(AnnualRenewEvent event);
+
+    /**
+     * 认证过期失效通知
+     * @param event
+     * 参数	描述
+     * ToUserName	开发者微信号
+     * FromUserName	发送方帐号（一个OpenID，此时发送方是系统帐号）
+     * CreateTime	消息创建时间 （整型），时间戳
+     * MsgType	消息类型，event
+     * Event	事件类型 verify_expired
+     * ExpiredTime	有效期 (整形)，指的是时间戳，将于该时间戳认证过期
+     * @return
+     */
+    ReplyMessage handlerVerifyExpired(VerifyExpiredEvent event);
+
 }

@@ -113,6 +113,18 @@ public class MessageController {
                 return eventHandler.handlerPicWeiXin(XmlUtils.toBean(requestBody, PicWeiXinEvent.class));
             case "location_select":
                 return eventHandler.handlerLocationSelect(XmlUtils.toBean(requestBody, LocationSelectEvent.class));
+            case "qualification_verify_success":
+                return eventHandler.handlerQualificationVerifySuccess(XmlUtils.toBean(requestBody, QualificationVerifySuccessEvent.class));
+            case "qualification_verify_fail":
+                return eventHandler.handlerQualificationVerifyFail(XmlUtils.toBean(requestBody, QualificationVerifyFailEvent.class));
+            case "naming_verify_success":
+                return eventHandler.handlerNamingVerifySuccess(XmlUtils.toBean(requestBody, NamingVerifySuccessEvent.class));
+            case "naming_verify_fail":
+                return eventHandler.handlerNamingVerifyFail(XmlUtils.toBean(requestBody, NamingVerifyFailEvent.class));
+            case "annual_renew":
+                return eventHandler.handlerAnnualRenew(XmlUtils.toBean(requestBody, AnnualRenewEvent.class));
+            case "verify_expired":
+                return eventHandler.handlerVerifyExpired(XmlUtils.toBean(requestBody, VerifyExpiredEvent.class));
             default:
                 logger.error("unknown event {}", event);
         }

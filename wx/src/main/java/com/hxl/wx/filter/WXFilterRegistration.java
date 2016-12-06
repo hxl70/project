@@ -1,6 +1,5 @@
 package com.hxl.wx.filter;
 
-import com.hxl.wx.entity.WXConfig;
 import com.hxl.wx.entity.WXUri;
 import org.springframework.boot.context.embedded.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;

@@ -10,15 +10,15 @@ import java.util.HashMap;
  */
 public class ResultHandler {
 
-    public static String handler(String result) throws Exception {
+    public static void handler(String result) throws Exception {
         HashMap hashMap = JsonUtils.toBean(result, HashMap.class);
         //{"errcode":45009,"errmsg":"api freq out of limit"}
         Object errcode = hashMap.get("errcode");
         if (errcode == null) {
-            return result;
+            return;
         }
         if (errcode.toString().equals("0")) {
-            return result;
+            return;
         } else {
             throw new Exception(result);
         }

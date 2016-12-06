@@ -22,7 +22,7 @@ public class MenuServiceImpl implements MenuService {
     //POST
     private String createUrl = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=%s";
     //GET
-    private String getUrl = "https://api.weixin.qq.com/cgi-bin/menu/get?access_token=%s";
+    private String getUrl = "https://api.weixin.qq.com/cgi-bin/menu/download?access_token=%s";
     //GET
     private String deleteUrl = "https://api.weixin.qq.com/cgi-bin/menu/delete?access_token=%s";
     @Autowired
@@ -39,7 +39,7 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public Menu get() {
         String result = httpsService.get(String.format(getUrl, WXAccessToken.ACCESS_TOKEN));
-        logger.info("get menu: {}", result);
+        logger.info("download menu: {}", result);
         MenuResult menuResult = JsonUtils.toBean(result, MenuResult.class);
         return menuResult == null ? null : menuResult.getMenu();
     }

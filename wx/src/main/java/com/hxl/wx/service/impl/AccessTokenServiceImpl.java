@@ -28,7 +28,7 @@ public class AccessTokenServiceImpl implements AccessTokenService {
     @Override
     public AccessToken get() {
         String accessToken = httpsService.get(String.format(url, wxConfig.getAppId(), wxConfig.getAppSecret()));
-        logger.info("access token get: {}", accessToken);
+        logger.info("access token download: {}", accessToken);
         return JsonUtils.toBean(accessToken, AccessToken.class);
     }
 

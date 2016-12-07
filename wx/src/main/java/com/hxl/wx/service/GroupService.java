@@ -1,6 +1,6 @@
 package com.hxl.wx.service;
 
-import com.hxl.wx.entity.Group;
+import com.hxl.wx.entity.user.Group;
 
 import java.util.List;
 

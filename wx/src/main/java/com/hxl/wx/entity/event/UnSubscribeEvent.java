@@ -1,7 +1,5 @@
 package com.hxl.wx.entity.event;
 
-import com.hxl.wx.entity.message.EventMessage;
-
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**

@@ -13,7 +13,7 @@ public interface HttpsService {
 
     String post(String url, String requestBody);
 
-    String upload(String url, File file, Map<String, String> param);
+    String upload(String url, Map<String, File> files, Map<String, String> param);
 
     void download(String url, String filePath);
 

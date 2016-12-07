@@ -1,5 +1,6 @@
-package com.hxl.wx.entity.message;
+package com.hxl.wx.entity.event;
 
+import com.hxl.wx.entity.message.Message;
 import com.hxl.wx.enumerate.MessageType;
 
 import javax.xml.bind.annotation.XmlElement;

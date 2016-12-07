@@ -1,6 +1,6 @@
 package com.hxl.wx.service.impl;
 
-import com.hxl.wx.entity.*;
+import com.hxl.wx.entity.WXAccessToken;
 import com.hxl.wx.entity.media.*;
 import com.hxl.wx.entity.reply.Media;
 import com.hxl.wx.enumerate.MediaType;
@@ -47,7 +47,9 @@ public class MediaServiceImpl implements MediaService {
 
     @Override
     public String upload(UploadType type, File file) {
-        return httpsService.upload(String.format(uploadUrl, WXAccessToken.ACCESS_TOKEN, type.getName()), file, null);
+        Map<String, File> fileMap = new HashMap<>();
+        fileMap.put("media", file);
+        return httpsService.upload(String.format(uploadUrl, WXAccessToken.ACCESS_TOKEN, type.getName()), fileMap, null);
     }
 
     @Override
@@ -62,7 +64,9 @@ public class MediaServiceImpl implements MediaService {
 
     @Override
     public String uploadImage(File file) {
-        String result = httpsService.upload(String.format(uploadImageUrl, WXAccessToken.ACCESS_TOKEN), file, null);
+        Map<String, File> fileMap = new HashMap<>();
+        fileMap.put("media", file);
+        String result = httpsService.upload(String.format(uploadImageUrl, WXAccessToken.ACCESS_TOKEN), fileMap, null);
         return JsonUtils.toBean(result, HashMap.class).get("media_id").toString();
     }
 
@@ -79,7 +83,10 @@ public class MediaServiceImpl implements MediaService {
         paramMap.put("type", type.getName());
         paramMap.put("description", JsonUtils.toString(description));
 
-        httpsService.upload(String.format(uploadMediaUrl, WXAccessToken.ACCESS_TOKEN), file, paramMap);
+        Map<String, File> fileMap = new HashMap<>();
+        fileMap.put("media", file);
+
+        httpsService.upload(String.format(uploadMediaUrl, WXAccessToken.ACCESS_TOKEN), fileMap, paramMap);
         return null;
     }
 

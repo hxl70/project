@@ -1,9 +1,9 @@
 package com.hxl.wx.service.impl;
 
-import com.hxl.wx.entity.Group;
-import com.hxl.wx.entity.GroupListResult;
-import com.hxl.wx.entity.GroupResult;
 import com.hxl.wx.entity.WXAccessToken;
+import com.hxl.wx.entity.user.Group;
+import com.hxl.wx.entity.user.GroupListResult;
+import com.hxl.wx.entity.user.GroupResult;
 import com.hxl.wx.service.GroupService;
 import com.hxl.wx.service.HttpsService;
 import com.hxl.wx.utils.JsonUtils;

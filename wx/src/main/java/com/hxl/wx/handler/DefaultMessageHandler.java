@@ -5,8 +5,6 @@ import com.hxl.wx.entity.reply.*;
 import com.hxl.wx.factory.ReturnMessageFactory;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
-
 /**
  * Created by hxl on 2016/11/22.
  */

@@ -42,7 +42,7 @@ public class HttpsServiceImpl implements HttpsService {
         }.execute(url);
     }
 
-    public String upload(String url, File file, Map<String, String> param) {
+    public String upload(String url, Map<String, File> files, Map<String, String> param) {
         return new Executor() {
             @Override
             public String callback(HttpURLConnection connection) throws IOException {
@@ -52,13 +52,14 @@ public class HttpsServiceImpl implements HttpsService {
                 String random = String.valueOf(new Random().nextLong());
                 connection.setRequestProperty("Content-type", "multipart/form-data");
                 connection.setRequestProperty("Connection", "Keep-Alive");
-                
-                final StringBuffer sb = new StringBuffer(256);
 
+                DataOutputStream dos = new DataOutputStream(connection.getOutputStream());
+
+                StringBuffer paramString = new StringBuffer(256);
                 //send param
                 if (param != null) {
                     param.entrySet().stream().forEach((entry) -> {
-                        sb.append(newLine)
+                        paramString.append(newLine)
                                 .append("-----------------------------")
                                 .append(random)
                                 .append(newLine)
@@ -69,30 +70,40 @@ public class HttpsServiceImpl implements HttpsService {
                                 .append(entry.getValue());
                     });
                 }
+                dos.write(paramString.toString().getBytes());
 
                 //upload file
-                String fileName = file.getName();
-                sb.append("-----------------------------");
-                sb.append(random);
-                sb.append(newLine);
-                sb.append("Content-Disposition: form-data; name=\"media\"; content-type=\"")
-                        .append(fileName.substring(fileName.length() - 3))
-                        .append("\"; filelength=\"")
-                        .append(file.length())
-                        .append("\"; filename=\"")
-                        .append(fileName)
-                        .append("\" ");
-                sb.append(newLine);
-                sb.append(newLine);
-
-                DataOutputStream dos = new DataOutputStream(connection.getOutputStream());
-                dos.write(sb.toString().getBytes());
-                DataInputStream dis = new DataInputStream(new FileInputStream(file));
-                int bytes;
-                byte[] bufferOut = new byte[1024];
-                while ((bytes = dis.read(bufferOut)) != -1) {
-                    dos.write(bufferOut, 0, bytes);
-                }
+                files.entrySet().stream().forEach(entry -> {
+                    File file = entry.getValue();
+                    String fileName = file.getName();
+                    StringBuffer fileStr = new StringBuffer();
+                    fileStr.append("-----------------------------");
+                    fileStr.append(random);
+                    fileStr.append(newLine);
+                    fileStr.append("Content-Disposition: form-data; name=\"")
+                            .append(entry.getKey())
+                            .append("\"; content-type=\"")
+                            .append(fileName.substring(fileName.length() - 3))
+                            .append("\"; filelength=\"")
+                            .append(file.length())
+                            .append("\"; filename=\"")
+                            .append(fileName)
+                            .append("\" ");
+                    fileStr.append(newLine);
+                    fileStr.append(newLine);
+                    try {
+                        dos.write(paramString.toString().getBytes());
+                        DataInputStream dis = new DataInputStream(new FileInputStream(file));
+                        int bytes;
+                        byte[] bufferOut = new byte[1024];
+                        while ((bytes = dis.read(bufferOut)) != -1) {
+                            dos.write(bufferOut, 0, bytes);
+                        }
+                        dis.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
 
                 StringBuffer end = new StringBuffer(64);
                 end.append(newLine);
@@ -103,7 +114,6 @@ public class HttpsServiceImpl implements HttpsService {
                 dos.write(end.toString().getBytes());
                 dos.flush();
                 dos.close();
-                dis.close();
                 
                 return getResponse(connection);
             }
@@ -115,6 +125,12 @@ public class HttpsServiceImpl implements HttpsService {
         ((Executor) connection -> {
             connection.setDoInput(true);
             connection.setRequestMethod("GET");
+
+//            int state = connection.getResponseCode();
+//            if (state == HttpURLConnection.HTTP_OK) {
+//                connection.getHeaderFields();
+//            }
+
             DataOutputStream dos = new DataOutputStream(new FileOutputStream(filePath));
             DataInputStream dis = new DataInputStream(connection.getInputStream());
             int bytes;
@@ -147,6 +163,9 @@ interface Executor {
             HttpURLConnection connection = (HttpURLConnection) u.openConnection();
             connection.setRequestProperty("charset", "utf-8");
             String result = callback(connection);
+            if (result == null) {
+                return null;
+            }
             logger.debug(result);
             ResultHandler.handler(result);
             return result;

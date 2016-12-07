@@ -38,6 +38,9 @@ public class Button {
     @JsonProperty("sub_button")
     private List<Button> subButtons = new ArrayList<>(5);
 
+    @JsonProperty("news_info")
+    private MenuNewsInfo newsInfo;
+
     public ButtonType getType() {
         return type;
     }
@@ -84,5 +87,13 @@ public class Button {
 
     public void setSubButtons(List<Button> subButtons) {
         this.subButtons = subButtons;
+    }
+
+    public MenuNewsInfo getNewsInfo() {
+        return newsInfo;
+    }
+
+    public void setNewsInfo(MenuNewsInfo newsInfo) {
+        this.newsInfo = newsInfo;
     }
 }

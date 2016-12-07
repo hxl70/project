@@ -23,7 +23,7 @@ public class MenuServiceTest extends AbstractTest {
         button.setType(ButtonType.scancode_waitmsg);
         button.setKey("rselfmenu_0_0");
         menu.getButtons().add(button);
-        menuService.set(menu);
+        menuService.create(menu);
     }
 
     @Test

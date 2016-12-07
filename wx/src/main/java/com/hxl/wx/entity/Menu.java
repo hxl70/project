@@ -16,11 +16,6 @@ public class Menu {
      */
     @JsonProperty("button")
     private List<Button> buttons = new ArrayList<>(3);
-    /**
-     * 	菜单匹配规则
-     */
-    @JsonProperty("matchrule")
-    private MatchRule matchRule;
 
     public List<Button> getButtons() {
         return buttons;
@@ -28,13 +23,5 @@ public class Menu {
 
     public void setButtons(List<Button> buttons) {
         this.buttons = buttons;
-    }
-
-    public MatchRule getMatchRule() {
-        return matchRule;
-    }
-
-    public void setMatchRule(MatchRule matchRule) {
-        this.matchRule = matchRule;
     }
 }

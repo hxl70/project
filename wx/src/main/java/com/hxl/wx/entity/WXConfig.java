@@ -2,9 +2,6 @@ package com.hxl.wx.entity;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-import java.io.IOException;
-import java.util.Properties;
-
 /**
  * Created by hxl on 2016/11/18.
  * 微信配置信息

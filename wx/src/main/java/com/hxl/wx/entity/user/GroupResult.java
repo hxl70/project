@@ -1,4 +1,4 @@
-package com.hxl.wx.entity;
+package com.hxl.wx.entity.user;
 
 /**
  * Created by hxl on 2016/12/5.

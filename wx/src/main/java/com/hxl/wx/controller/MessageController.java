@@ -1,6 +1,6 @@
 package com.hxl.wx.controller;
 
-import com.hxl.wx.entity.*;
+import com.hxl.wx.entity.WXUri;
 import com.hxl.wx.entity.event.*;
 import com.hxl.wx.entity.message.*;
 import com.hxl.wx.entity.reply.ReplyMessage;

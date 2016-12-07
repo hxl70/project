@@ -1,4 +1,4 @@
-package com.hxl.wx.entity;
+package com.hxl.wx.entity.user;
 
 import java.util.ArrayList;
 import java.util.List;

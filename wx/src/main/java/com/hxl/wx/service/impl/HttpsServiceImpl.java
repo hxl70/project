@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
 
@@ -55,28 +56,28 @@ public class HttpsServiceImpl implements HttpsService {
 
                 DataOutputStream dos = new DataOutputStream(connection.getOutputStream());
 
-                StringBuffer paramString = new StringBuffer(256);
                 //send param
                 if (param != null) {
-                    param.entrySet().stream().forEach((entry) -> {
-                        paramString.append(newLine)
-                                .append("-----------------------------")
-                                .append(random)
-                                .append(newLine)
-                                .append("Content-Disposition: form-data; name=\"")
-                                .append(entry.getKey())
-                                .append(newLine)
-                                .append(newLine)
-                                .append(entry.getValue());
-                    });
+                    StringBuffer paramString = new StringBuffer(256);
+                    param.entrySet().forEach((entry) -> paramString.append(newLine)
+                            .append("-----------------------------")
+                            .append(random)
+                            .append(newLine)
+                            .append("Content-Disposition: form-data; name=\"")
+                            .append(entry.getKey())
+                            .append(newLine)
+                            .append(newLine)
+                            .append(entry.getValue()));
+                    dos.write(paramString.toString().getBytes());
                 }
-                dos.write(paramString.toString().getBytes());
 
                 //upload file
-                files.entrySet().stream().forEach(entry -> {
+
+                for (Iterator<Map.Entry<String, File>> it = files.entrySet().iterator(); it.hasNext(); ) {
+                    Map.Entry<String, File> entry = it.next();
                     File file = entry.getValue();
                     String fileName = file.getName();
-                    StringBuffer fileStr = new StringBuffer();
+                    StringBuffer fileStr = new StringBuffer(256);
                     fileStr.append("-----------------------------");
                     fileStr.append(random);
                     fileStr.append(newLine);
@@ -91,19 +92,16 @@ public class HttpsServiceImpl implements HttpsService {
                             .append("\" ");
                     fileStr.append(newLine);
                     fileStr.append(newLine);
-                    try {
-                        dos.write(paramString.toString().getBytes());
-                        DataInputStream dis = new DataInputStream(new FileInputStream(file));
-                        int bytes;
-                        byte[] bufferOut = new byte[1024];
-                        while ((bytes = dis.read(bufferOut)) != -1) {
-                            dos.write(bufferOut, 0, bytes);
-                        }
-                        dis.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
+
+                    dos.write(fileStr.toString().getBytes());
+                    DataInputStream dis = new DataInputStream(new FileInputStream(file));
+                    int bytes;
+                    byte[] bufferOut = new byte[1024];
+                    while ((bytes = dis.read(bufferOut)) != -1) {
+                        dos.write(bufferOut, 0, bytes);
                     }
-                });
+                    dis.close();
+                }
 
                 StringBuffer end = new StringBuffer(64);
                 end.append(newLine);
